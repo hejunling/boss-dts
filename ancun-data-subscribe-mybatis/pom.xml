@@ -60,13 +60,6 @@
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
 
-        <!-- mybatis for spring boot -->
-        <!--<dependency>-->
-            <!--<groupId>org.mybatis.spring.boot</groupId>-->
-            <!--<artifactId>mybatis-spring-boot-starter</artifactId>-->
-            <!--<version>${mybatis.boot.version}</version>-->
-        <!--</dependency>-->
-        <!--Mybatis-->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
@@ -103,11 +96,13 @@
         </dependency>
 
         <!-- datasouce -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>${druid.version}</version>
-        </dependency>
+       <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>druid</artifactId>
+		    <version>1.0.23</version>
+		</dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -151,7 +146,6 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.2.4</version>
         </dependency>
 
         <dependency>
@@ -162,19 +156,16 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
+            </dependency>
 
         <!--ACTIVE MQ-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jms</artifactId>
-            <version>4.2.3.RELEASE</version>
-        </dependency>
+            </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-broker</artifactId>
-            <version>5.13.3</version>
         </dependency>
 
         <!-- http://mvnrepository.com/artifact/org.assertj/assertj-core -->
@@ -194,7 +185,6 @@
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
-            <version>${ehcache.version}</version>
         </dependency>
 
     </dependencies>
@@ -237,17 +227,5 @@
         </plugins>
     </build>
 
-    <!--<distributionManagement>-->
-        <!--<repository>-->
-            <!--<id>releases</id>-->
-            <!--<name>Internal Releases</name>-->
-            <!--<url>${nexus.url}/releases</url>-->
-        <!--</repository>-->
-        <!--<snapshotRepository>-->
-            <!--<id>Snapshots</id>-->
-            <!--<name>Internal Snapshots</name>-->
-            <!--<url>${nexus.url}/snapshots</url>-->
-        <!--</snapshotRepository>-->
-    <!--</distributionManagement>-->
 
 </project>
