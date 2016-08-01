@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.common.persistence.mapper.dx.RecordPermisstionMapper" >
+  <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.dx.RecordPermisstion" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="ORG_NO" property="orgNo" jdbcType="VARCHAR" />
+    <result column="PERMISSTION_NAME" property="permisstionName" jdbcType="VARCHAR" />
+    <result column="PERMISSTION_TYPE" property="permisstionType" jdbcType="VARCHAR" />
+    <result column="PERMISSION_CODE" property="permissionCode" jdbcType="VARCHAR" />
+    <result column="PARENT_PER_ID" property="parentPerId" jdbcType="BIGINT" />
+    <result column="SORT_ORDER" property="sortOrder" jdbcType="BIGINT" />
+    <result column="USER_NO" property="userNo" jdbcType="VARCHAR" />
+    <result column="RPCODE" property="rpcode" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

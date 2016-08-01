@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ancun-boss">
+        <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/"/>
+        <dependent-module archiveName="ancun-core-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ancun-core/ancun-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ancun-utils-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ancun-utils/ancun-utils">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ancun-biz-utils-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ancun-biz-utils/ancun-biz-utils">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ancun-common-biz-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ancun-common-biz/ancun-common-biz">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ancun-test-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ancun-test/ancun-test">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ancun-thirdparty-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ancun-thirdparty/ancun-thirdparty">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ancun-validate-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/ancun-validate/ancun-validate">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/ancun-boss/target/classes"/>
+        <property name="context-root" value="ancun-boss"/>
+    </wb-module>
+</project-modules>

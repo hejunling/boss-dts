@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.common.persistence.mapper.sh.ShUserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.sh.ShUserInfo">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        <id column="UIID" property="uiid" jdbcType="BIGINT"/>
+        <result column="USERNO" property="userno" jdbcType="VARCHAR"/>
+        <result column="USERNAME" property="username" jdbcType="VARCHAR"/>
+        <result column="CONTACTNAME" property="contactname" jdbcType="VARCHAR"/>
+        <result column="CONTACTPHONE" property="contactphone" jdbcType="VARCHAR"/>
+        <result column="FAX" property="fax" jdbcType="VARCHAR"/>
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="ALLOWMAXSTORE" property="allowmaxstore" jdbcType="DOUBLE"/>
+        <result column="USEDINGSTORE" property="usedingstore" jdbcType="DOUBLE"/>
+        <result column="RECTIPFLAG" property="rectipflag" jdbcType="CHAR"/>
+        <result column="OPENFLAG" property="openflag" jdbcType="VARCHAR"/>
+        <result column="BUSINESSTYPE" property="businesstype" jdbcType="VARCHAR"/>
+        <result column="OPENMONMUM" property="openmonmum" jdbcType="BIGINT"/>
+        <result column="CALLERFLAG_bk" property="callerflagBk" jdbcType="VARCHAR"/>
+        <result column="CALLEDFLAG_bk" property="calledflagBk" jdbcType="VARCHAR"/>
+        <result column="TRIAL_START_TIME" property="trialStartTime" jdbcType="TIMESTAMP"/>
+        <result column="TRIAL_END_TIME" property="trialEndTime" jdbcType="TIMESTAMP"/>
+        <result column="IMPORT_TIME" property="importTime" jdbcType="TIMESTAMP"/>
+        <result column="USERTYPE" property="usertype" jdbcType="VARCHAR"/>
+        <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP"/>
+        <result column="ISIGNUPSOURCE" property="isignupsource" jdbcType="VARCHAR"/>
+        <result column="SIGNUPIP" property="signupip" jdbcType="VARCHAR"/>
+        <result column="SIGNUPTIME" property="signuptime" jdbcType="TIMESTAMP"/>
+        <result column="TAOCANID" property="taocanid" jdbcType="BIGINT"/>
+        <result column="ORG_NO" property="orgNo" jdbcType="VARCHAR"/>
+        <result column="ACCESSCODE_ACTIVE" property="accesscodeActive" jdbcType="BIGINT"/>
+        <result column="OPEN_SEQ" property="openSeq" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <resultMap id="BizUserInfoMap" type="com.ancun.common.persistence.model.sh.ShBizUserInfo">
+        <result column="USER_NO" property="userNo" jdbcType="VARCHAR"/>
+        <result column="USER_TEL" property="userTel" jdbcType="VARCHAR"/>
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR"/>
+        <result column="ACCOUNTTYPE" property="accounttype" jdbcType="VARCHAR"/>
+        <result column="PHONETYPE" property="phonetype" jdbcType="VARCHAR"/>
+        <result column="RPCODE" property="rpcode" jdbcType="VARCHAR"/>
+        <result column="CITYCODE" property="citycode" jdbcType="VARCHAR"/>
+        <result column="USERSTATUS" property="userstatus" jdbcType="VARCHAR"/>
+        <result column="ORG_NO" property="orgNo" jdbcType="VARCHAR"/>
+        <result column="DEFAULTPWDFLAG" property="defaultpwdflag" jdbcType="CHAR"/>
+        <result column="OPENDATETIME" property="opendatetime" jdbcType="TIMESTAMP"/>
+        <result column="CANCELDATETIME" property="canceldatetime" jdbcType="TIMESTAMP"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="ISREFUND" property="isrefund" jdbcType="VARCHAR"/>
+        <result column="REFUNDAMOUNT" property="refundamount" jdbcType="DOUBLE"/>
+        <result column="REFUNDREMARK" property="refundremark" jdbcType="VARCHAR"/>
+        <result column="SMS_LOGIN" property="smsLogin" jdbcType="VARCHAR"/>
+        <result column="CONTACTPHONE" property="contactphone" jdbcType="VARCHAR"/>
+        <result column="TAOCANID" property="taocanid" jdbcType="BIGINT"/>
+        <result column="EMAIL" property="email" jdbcType="VARCHAR"/>
+        <result column="CALLERFLAG" property="callerflag" jdbcType="VARCHAR"/>
+        <result column="CALLEDFLAG" property="calledflag" jdbcType="VARCHAR"/>
+        <result column="RECTIPFLAG" property="rectipflag" jdbcType="VARCHAR"/>
+        <result column="CALLED_RECTIPFLAG" property="calledRectipflag" jdbcType="VARCHAR"/>
+        <result column="FAX" property="fax" jdbcType="VARCHAR"/>
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR"/>
+        <result column="BUSINESSTYPE" property="businesstype" jdbcType="VARCHAR"/>
+        <result column="USERTYPE" property="usertype" jdbcType="VARCHAR"/>
+        <result column="ISIGNUPSOURCE" property="isignupsource" jdbcType="VARCHAR"/>
+        <result column="SIGNUPTIME" property="signuptime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="selectShBizUserInfo" resultMap="BizUserInfoMap"
+            parameterType="com.ancun.common.persistence.model.master.BizTimerConfig">
+    SELECT
+    t1.USER_NO,
+    t1.USER_TEL,
+    t1.`PASSWORD`,
+    t1.ACCOUNTTYPE,
+    t1.PHONETYPE,
+    t1.RPCODE,
+    t1.CITYCODE,
+    t1.USERSTATUS,
+    t1.ORG_NO,
+    t1.DEFAULTPWDFLAG,
+    t1.OPENDATETIME,
+    t1.CANCELDATETIME,
+    t1.REMARK,
+    t1.ISREFUND,
+    t1.REFUNDAMOUNT,
+    t1.REFUNDREMARK,
+    t1.SMS_LOGIN,
+    t1.CONTACTPHONE,
+    t1.TAOCANID,
+    t1.EMAIL,
+    t1.CALLERFLAG,
+    t1.CALLEDFLAG,
+    t1.RECTIPFLAG,
+    t1.CALLED_RECTIPFLAG,
+    t2.FAX,
+    t2.ADDRESS,
+    t2.BUSINESSTYPE,
+    t2.USERTYPE,
+    t2.ISIGNUPSOURCE,
+    t2.SIGNUPTIME
+    FROM
+    account_info t1
+    LEFT JOIN user_info t2 ON t1.USER_NO = t2.USERNO
+    WHERE
+      (
+          t1.UPDATE_TIME &gt;= #{synStartTimer}   AND  t1.UPDATE_TIME &lt;= #{synEndTimer}
+       )
+       OR  t1.UPDATE_TIME='0000-00-00 00:00:00'
+
+  </select>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.common.persistence.mapper.dx.UserTaocanMapper" >
+  <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.dx.UserTaocan" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="TCID" property="tcid" jdbcType="BIGINT" />
+    <result column="TAOCAN_NAME" property="taocanName" jdbcType="VARCHAR" />
+    <result column="TAOCAN_PRICE" property="taocanPrice" jdbcType="DECIMAL" />
+    <result column="TAOCAN_TYPE" property="taocanType" jdbcType="VARCHAR" />
+    <result column="TAOCAN_CREATETIME" property="taocanCreatetime" jdbcType="TIMESTAMP" />
+    <result column="TAOCAN_FINISHTIME" property="taocanFinishtime" jdbcType="TIMESTAMP" />
+    <result column="STORE_SPACE" property="storeSpace" jdbcType="VARCHAR" />
+    <result column="TAOCAN_ORDER" property="taocanOrder" jdbcType="INTEGER" />
+    <result column="TAOCAN_STATUS" property="taocanStatus" jdbcType="VARCHAR" />
+    <result column="TAOCAN_SERVICE" property="taocanService" jdbcType="VARCHAR" />
+    <result column="TAOCAN_REMARK" property="taocanRemark" jdbcType="VARCHAR" />
+    <result column="RPCODE" property="rpcode" jdbcType="VARCHAR" />
+    <result column="TCDURATION" property="tcduration" jdbcType="VARCHAR" />
+    <result column="TC_FLAG" property="tcFlag" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+      xmlns:tx="http://www.springframework.org/schema/tx"  
+      xmlns:aop="http://www.springframework.org/schema/aop"  
+      xmlns:mvc="http://www.springframework.org/schema/mvc" 
+      xmlns:task="http://www.springframework.org/schema/task"
+      xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:cache="http://www.springframework.org/schema/cache"
+      xsi:schemaLocation="  
+        http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+        http://www.springframework.org/schema/tx  
+       	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
+        http://www.springframework.org/schema/aop  
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/mvc  
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/task
+    	http://www.springframework.org/schema/task/spring-task-3.0.xsd
+        http://www.springframework.org/schema/context 
+    	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    	http://www.springframework.org/schema/cache  
+        http://www.springframework.org/schema/cache/spring-cache-3.2.xsd">  
+	
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+  		<property name="dataSource" ref="dataSource" />
+  		<property name="mapperLocations" >
+  		<array>
+  			<value>classpath*:xml/*.xml</value>
+			<value>classpath*:xml/business/*.xml</value>
+  			<value>classpath*:biz/xml/*.xml</value>
+			<value>classpath*:biz/xml/business/*.xml</value>
+  		</array>
+  		</property>
+  		<property name="plugins">
+	        <array>
+	            <bean class="com.ancun.core.page.PagingInterceptor" />
+	        </array>
+	    </property>
+	    <property name="configurationProperties">
+	        <props>
+	            <prop key="dialect">com.ancun.core.page.MysqlDialect</prop>
+	        </props>
+    	</property>
+	</bean>
+	
+	<context:component-scan base-package="com.ancun.common.biz" use-default-filters="false">
+		<context:include-filter type="regex" expression="com.ancun.common.biz.*" />
+	 	<context:exclude-filter type="regex" expression="com.ancun.common.biz.persistence.*" />
+	</context:component-scan>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.ancun.common.biz.persistence,com.ancun.boss.persistence,com.ancun.boss.business.persistence" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+	
+	<mvc:interceptors>  
+      	<mvc:interceptor>  
+            <mvc:mapping path="/**"/>  
+            <bean class="com.ancun.core.spring.handler.SecurityApiHandler" />
+        </mvc:interceptor>
+        
+        <mvc:interceptor>  
+            <mvc:mapping path="/**"/>  
+            <bean class="com.ancun.boss.handler.UserDetailLogHandler" />
+        </mvc:interceptor> 
+    </mvc:interceptors>  
+    
+<!--     <task:annotation-driven executor="executor" />
+	<task:executor id="executor" pool-size="7"/>
+ -->
+    <!-- <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">    
+	    <property name="interceptors">    
+	        <list>    
+	            <ref bean="userLogHandler"/>    
+	        </list>    
+	    </property>    
+	</bean>  -->
+	
+	<bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+	     <property name="configLocation"  value="/WEB-INF/cache/ehcache.xml"/>
+	</bean>
+	
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager"  ref="cacheManagerFactory"/>
+    </bean>
+    
+    <cache:annotation-driven cache-manager="cacheManager"/>
+
+	<!-- 异步线程池 -->
+	<bean id="threadPool" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<!-- 核心线程数  -->
+		<property name="corePoolSize" value="7" />
+		<!-- 最大线程数 -->
+		<property name="maxPoolSize" value="10" />
+		<!-- 队列最大长度 >=mainExecutor.maxSize -->
+		<property name="queueCapacity" value="1000" />
+		<!-- 线程池维护线程所允许的空闲时间 -->
+		<property name="keepAliveSeconds" value="300" />
+		<!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
+		<property name="rejectedExecutionHandler">
+			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
+		</property>
+	</bean>
+
+	<!-- 任务链 -->
+	<bean id="taskBus" class="com.ancun.utils.taskbus.TaskBus" />
+</beans>

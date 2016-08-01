@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.boss.persistence.biz.BizFunctionInfoMapper">
+    <resultMap id="BaseResultMap" type="com.ancun.boss.persistence.model.FunctionInfo">
+        <id column="FUCNO" property="fucno" jdbcType="VARCHAR"/>
+        <result column="FUCNAME" property="fucname" jdbcType="VARCHAR"/>
+        <result column="FUCSTYLE" property="fucstyle" jdbcType="VARCHAR"/>
+        <result column="DELETED" property="deleted" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="queryFunByMenuNo" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+            fi.FUCNO,
+            fi.FUCNAME,
+            fi.DELETED,
+            fi.FUCSTYLE
+        FROM
+            MENU_FUNCTION_INFO mfi
+        LEFT JOIN FUNCTION_INFO fi ON mfi.FUCNO = fi.FUCNO
+
+        where fi.DELETED = 'NO'
+        <if test="menuno !=null and menuno !=''">
+            AND mfi.MENUNO=#{menuno,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+</mapper>

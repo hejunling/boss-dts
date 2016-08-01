@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.common.persistence.mapper.sh.ShUserInfoHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.sh.ShUserInfoHistory" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="UIID" property="uiid" jdbcType="BIGINT" />
+    <result column="USERNO" property="userno" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="CONTACTNAME" property="contactname" jdbcType="VARCHAR" />
+    <result column="CONTACTPHONE" property="contactphone" jdbcType="VARCHAR" />
+    <result column="FAX" property="fax" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="ALLOWMAXSTORE" property="allowmaxstore" jdbcType="DOUBLE" />
+    <result column="USEDINGSTORE" property="usedingstore" jdbcType="DOUBLE" />
+    <result column="RECTIPFLAG" property="rectipflag" jdbcType="CHAR" />
+    <result column="OPENFLAG" property="openflag" jdbcType="VARCHAR" />
+    <result column="BUSINESSTYPE" property="businesstype" jdbcType="VARCHAR" />
+    <result column="OPENMONMUM" property="openmonmum" jdbcType="BIGINT" />
+    <result column="CALLERFLAG_bk" property="callerflagBk" jdbcType="VARCHAR" />
+    <result column="CALLEDFLAG_bk" property="calledflagBk" jdbcType="VARCHAR" />
+    <result column="TRIAL_START_TIME" property="trialStartTime" jdbcType="TIMESTAMP" />
+    <result column="TRIAL_END_TIME" property="trialEndTime" jdbcType="TIMESTAMP" />
+    <result column="IMPORT_TIME" property="importTime" jdbcType="TIMESTAMP" />
+    <result column="USERTYPE" property="usertype" jdbcType="VARCHAR" />
+    <result column="CREATETIME" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="ISIGNUPSOURCE" property="isignupsource" jdbcType="VARCHAR" />
+    <result column="SIGNUPIP" property="signupip" jdbcType="VARCHAR" />
+    <result column="SIGNUPTIME" property="signuptime" jdbcType="TIMESTAMP" />
+    <result column="TAOCANID" property="taocanid" jdbcType="BIGINT" />
+    <result column="ORG_NO" property="orgNo" jdbcType="VARCHAR" />
+    <result column="ACCESSCODE_ACTIVE" property="accesscodeActive" jdbcType="BIGINT" />
+    <result column="OPEN_SEQ" property="openSeq" jdbcType="BIGINT" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.boss.persistence.biz.CostCalcBizMapper" >
+  <resultMap id="BaseResultMap" type="com.ancun.boss.pojo.marketInfo.CostCalcInfo" >
+    <result column="ID" property="id" jdbcType="BIGINT" />
+    <result column="EMP_PAY" property="empPay" jdbcType="VARCHAR" />
+    <result column="BILL" property="bill" jdbcType="VARCHAR" />
+    <result column="MANAGE_PAY" property="managePay" jdbcType="VARCHAR" />
+    <result column="MANAGE_EXP" property="manageExp" jdbcType="VARCHAR" />
+    <result column="INSURANCE" property="insurance" jdbcType="VARCHAR" />
+    <result column="WE_PAY" property="wePay" jdbcType="VARCHAR" />
+    <result column="WE_EXP" property="weExp" jdbcType="VARCHAR" />
+    <result column="NET_PAY" property="netPay" jdbcType="VARCHAR" />
+    <result column="NET_EXP" property="netExp" jdbcType="VARCHAR" />
+    <result column="DEVICE_PAY" property="devicePay" jdbcType="VARCHAR" />
+    <result column="RENT" property="rent" jdbcType="VARCHAR" />
+    <result column="RENT_EXP" property="rentExp" jdbcType="VARCHAR" />
+    <result column="TOTAL_COST" property="totalCost" jdbcType="VARCHAR" />
+    <result column="SUCCESS_NUMBER" property="successNumber" jdbcType="VARCHAR" />
+    <result column="AVG_COST" property="avgCost" jdbcType="VARCHAR" />
+    <result column="BUSINESS" property="business" jdbcType="VARCHAR" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="MONTH" property="month" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="SIT_PRICE" property="sitPrice" jdbcType="VARCHAR" />
+    <result column="SIT_NUMBER" property="sitNumber" jdbcType="VARCHAR" />
+    <result column="SUC_PER_PRICE" property="sucPerPrice" jdbcType="VARCHAR" />
+    <result column="SUC_NUMBER" property="sucNumber" jdbcType="VARCHAR" />
+    <result column="CALLED_TEAM" property="calledTeam" jdbcType="VARCHAR" />
+    <result column="BUSINESSNAME" property="businessname" jdbcType="VARCHAR" />
+    <result column="CALLEDTEAMNAME" property="calledteamname" jdbcType="VARCHAR" />
+    <result column="TYPENAME" property="typename" jdbcType="VARCHAR" />
+  </resultMap>
+   <select id="getCount" resultType="java.lang.Integer" parameterType="com.ancun.boss.pojo.marketInfo.QueryCostCalcListInput" >
+    select
+    	count(ID)
+    from COST_CALC 
+    where 1=1
+ 	<include refid="Where_Clause" />
+   </select>
+   
+   <select id="queryCostCalcList" parameterType="com.ancun.boss.pojo.marketInfo.QueryCostCalcListInput" resultMap="BaseResultMap">
+   		select a.ID,EMP_PAY,b.NAME BUSINESSNAME,c.NAME CALLEDTEAMNAME ,d.NAME TYPENAME,MANAGE_PAY,MANAGE_EXP,INSURANCE,WE_PAY,WE_EXP,NET_PAY,NET_EXP,DEVICE_PAY,RENT,RENT_EXP,
+   	TOTAL_COST,SUCCESS_NUMBER,AVG_COST,BUSINESS,OPERATOR,MONTH,TYPE,BILL,SIT_PRICE,SIT_NUMBER,SUC_PER_PRICE,SUC_NUMBER,CALLED_TEAM
+   	from COST_CALC a LEFT JOIN SYSTEM_BASIC_CONFIG  b on a.BUSINESS = b.code 
+		LEFT JOIN SYSTEM_BASIC_CONFIG c  on a.CALLED_TEAM = c.code
+		LEFT JOIN SYSTEM_BASIC_CONFIG d on a.TYPE = d.CODE
+		where b.MOUDLECODE = 'BIZ-NAME' and c.MOUDLECODE = 'OUT-CALL-TEA' and d.MOUDLECODE='RESULT-SELEC'
+<!-- 		and a.BUSINESS in (select CODE FROM SYSTEM_BASIC_CONFIG S INNER JOIN USER_DATAPERMISSION U ON S.BASICNO=U.BASICNO WHERE U.USERNO=#{userno})-->
+	
+ 	<include refid="Where_Clause" />
+ 	<if test="ordersort != null and ordersort != ''" >
+	    	order by ID ${ordersort}
+	 </if>
+   </select>
+  
+   <sql id="Where_Clause" >
+      <if test="type != null and type != ''" >
+        AND TYPE = #{type,jdbcType=VARCHAR}
+      </if>
+   
+      <if test="business != null and business != ''" >
+         AND BUSINESS = #{business,jdbcType=VARCHAR}
+      </if>
+      <if test="calledteam != null and calledteam != ''" >
+         AND CALLED_TEAM = #{calledteam,jdbcType=VARCHAR}
+      </if>
+      
+      <if test="id != null and id != ''" >
+         AND a.ID = #{id,jdbcType=VARCHAR}
+      </if>
+   </sql>
+<select id="statisticsCost" parameterType="com.ancun.boss.pojo.statistics.StatisticsProfitCostInput" resultType="String">
+	select ROUND(sum(TOTAL_COST),2) from COST_CALC
+	where 1=1
+	 <if test="business != null and business != ''" >
+         AND BUSINESS = #{business,jdbcType=VARCHAR}
+      </if>
+      <if test="calledteam != null and calledteam != ''" >
+         AND CALLED_TEAM = #{calledteam,jdbcType=VARCHAR}
+      </if>
+	<if test="starttime != null and starttime != ''" >
+         AND MONTH &gt;= #{starttime}
+      </if>
+      <if test="endtime != null and endtime != ''" >
+         AND MONTH &lt;= #{endtime}
+      </if>
+
+</select>
+</mapper>

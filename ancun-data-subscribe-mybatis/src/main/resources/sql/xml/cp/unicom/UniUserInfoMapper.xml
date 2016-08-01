@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ancun.common.persistence.mapper.cp.unicom.UniUserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.cp.unicom.UniUserInfo">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="CPID" jdbcType="BIGINT" property="cpid" />
+    <result column="USERNO" jdbcType="VARCHAR" property="userno" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="USERTYPE" jdbcType="VARCHAR" property="usertype" />
+    <result column="PHONETYPE" jdbcType="VARCHAR" property="phonetype" />
+    <result column="RPCODE" jdbcType="VARCHAR" property="rpcode" />
+    <result column="CITYCODE" jdbcType="VARCHAR" property="citycode" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="CREATETIME" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="USERSTATUS" jdbcType="VARCHAR" property="userstatus" />
+    <result column="ALLOWMAXSTORE" jdbcType="DOUBLE" property="allowmaxstore" />
+    <result column="USEDINGSTORE" jdbcType="DOUBLE" property="usedingstore" />
+    <result column="RECTIPFLAG" jdbcType="CHAR" property="rectipflag" />
+    <result column="DEFAULTPWDFLAG" jdbcType="CHAR" property="defaultpwdflag" />
+    <result column="LOGINSOURCE" jdbcType="VARCHAR" property="loginsource" />
+    <result column="LOGINIP" jdbcType="VARCHAR" property="loginip" />
+    <result column="LOGINTIME" jdbcType="TIMESTAMP" property="logintime" />
+    <result column="ISIGNUPSOURCE" jdbcType="VARCHAR" property="isignupsource" />
+    <result column="SIGNUPIP" jdbcType="VARCHAR" property="signupip" />
+    <result column="SIGNUPTIME" jdbcType="TIMESTAMP" property="signuptime" />
+    <result column="TAOCANNAME" jdbcType="VARCHAR" property="taocanname" />
+    <result column="OPENFLAG" jdbcType="VARCHAR" property="openflag" />
+    <result column="OPENDATETIME" jdbcType="TIMESTAMP" property="opendatetime" />
+    <result column="CANCELDATETIME" jdbcType="TIMESTAMP" property="canceldatetime" />
+    <result column="BUSINESSTYPE" jdbcType="VARCHAR" property="businesstype" />
+    <result column="OPENMONMUM" jdbcType="BIGINT" property="openmonmum" />
+    <result column="AREACODE" jdbcType="VARCHAR" property="areacode" />
+    <result column="TCID" jdbcType="BIGINT" property="tcid" />
+    <result column="IMPORTFLAG" jdbcType="VARCHAR" property="importflag" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="AGENTID" jdbcType="VARCHAR" property="agentid" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+</mapper>

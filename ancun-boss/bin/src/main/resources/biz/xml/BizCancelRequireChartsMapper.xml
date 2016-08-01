@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.boss.persistence.biz.mapper.BizCancelRequireChartsMapper" >
+	<resultMap id="BaseResultMap" type="com.ancun.boss.pojo.cancelRequireCharts.CancelRequireChartsOutput">
+        <id column="ID" property="id" jdbcType="BIGINT" />
+    	<result column="CALLPHONE" property="callphone" jdbcType="VARCHAR" />
+    	<result column="SEX" property="sex" jdbcType="VARCHAR" />
+    	<result column="NAME" property="name" jdbcType="VARCHAR" />
+    	<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    	<result column="OPEN_TIME" property="openTime" jdbcType="DATE" />
+    	<result column="CANCEL_TIME" property="cancelTime" jdbcType="DATE" />
+    	<result column="CALL_TIME" property="callTime" jdbcType="TIMESTAMP" />
+    	<result column="CANCEL_REQIRE" property="cancelReqire" jdbcType="VARCHAR" />
+    	<result column="REFUND_MONEY" property="refundMoney" jdbcType="INTEGER" />
+   		<result column="REFUND_TIME" property="refundTime" jdbcType="TIMESTAMP" />
+    	<result column="VOICE" property="voice" jdbcType="VARCHAR" />
+    	<result column="SOURCE" property="source" jdbcType="VARCHAR" />
+    	<result column="ORDER_NO" property="orderNo" jdbcType="BIGINT" />
+    	<result column="ADJUST_MONTHS" property="adjustMonths" jdbcType="VARCHAR" />
+    	<result column="ADJUST_MONEY" property="adjustMoney" jdbcType="DOUBLE" />
+    	<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    	<result column="BUSINESS" property="business" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <select id="queryCancelRequireChartsTDTFList" parameterType="com.ancun.boss.pojo.cancelRequireCharts.CancelRequireChartsInput" resultMap="BaseResultMap">
+ 	SELECT DISTINCT 
+	 DATE_FORMAT(CANCEL_TIME,"%Y-%m") as month,
+	 SUM(REFUND_MONEY) as money,
+	 COUNT(CANCEL_REQIRE) as count
+	 from 
+	 CANCEL_RECORD t
+	 WHERE 1=1 
+	 <if test="business != null and business != ''">
+	 	 AND t.BUSINESS = #{business,jdbcType=VARCHAR}
+	 </if>
+	 <if test="cancelTimeStart != null and cancelTimeStart != ''">
+	 	 AND t.CANCEL_TIME &gt;= #{cancelTimeStart,jdbcType=VARCHAR}
+	 </if>
+	 <if test="cancelTimeEnd != null and cancelTimeEnd != ''">
+	 	 AND t.CANCEL_TIME &lt;= date_add(#{cancelTimeEnd,jdbcType=VARCHAR}, INTERVAL 1 MONTH)
+	 </if>
+	 <if test="cancelReqire != null and cancelReqire != ''">
+	 	 AND t.CANCEL_REQIRE = #{cancelReqire,jdbcType=VARCHAR}
+	 </if>
+	 GROUP BY month
+	 ORDER BY month		
+  </select>
+    
+     <select id="queryCancelRequireChartsTDList" parameterType="com.ancun.boss.pojo.cancelRequireCharts.CancelRequireChartsInput" resultMap="BaseResultMap">
+ 	SELECT DISTINCT 
+	 DATE_FORMAT(CANCEL_TIME,"%Y-%m") as month,
+	 COUNT(CANCEL_REQIRE) as count
+	 from 
+	 CANCEL_RECORD t
+	 WHERE 1=1 
+	 <if test="business != null and business != ''">
+	 	 AND t.BUSINESS = #{business,jdbcType=VARCHAR}
+	 </if>
+	 <if test="cancelTimeStart != null and cancelTimeStart != ''">
+	 	 AND t.CANCEL_TIME &gt;= #{cancelTimeStart,jdbcType=VARCHAR}
+	 </if>
+	 <if test="cancelTimeEnd != null and cancelTimeEnd != ''">
+	 	 AND t.CANCEL_TIME &lt;= date_add(#{cancelTimeEnd,jdbcType=VARCHAR}, INTERVAL 1 MONTH)
+	 </if>
+	 <if test="cancelReqire != null and cancelReqire != ''">
+	 	 AND t.CANCEL_REQIRE = #{cancelReqire,jdbcType=VARCHAR}
+	 </if>
+	 GROUP BY month
+	 ORDER BY month		
+  </select>
+</mapper>

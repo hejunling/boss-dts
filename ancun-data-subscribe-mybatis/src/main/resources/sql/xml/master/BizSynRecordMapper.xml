@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ancun.common.persistence.mapper.master.BizSynRecordMapper">
+  <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.master.BizSynRecord">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="MOUDLE" jdbcType="VARCHAR" property="moudle" />
+    <result column="SYN_START_TIMER" jdbcType="TIMESTAMP" property="synStartTimer" />
+    <result column="SYN_END_TIMER" jdbcType="TIMESTAMP" property="synEndTimer" />
+    <result column="RPCODE" jdbcType="VARCHAR" property="rpcode" />
+    <result column="CITYCODE" jdbcType="VARCHAR" property="citycode" />
+    <result column="SYN_COUNT" jdbcType="INTEGER" property="synCount" />
+    <result column="SYN_OK_COUNT" jdbcType="INTEGER" property="synOkCount" />
+  </resultMap>
+</mapper>

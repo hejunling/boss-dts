@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.common.persistence.mapper.sh.ShUserFileMapper" >
+  <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.sh.ShUserFile" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="PF_RECORD_NO" property="pfRecordNo" jdbcType="VARCHAR" />
+    <result column="PF_NOTARY_USER_NO" property="pfNotaryUserNo" jdbcType="VARCHAR" />
+    <result column="PF_ACCOUNT_NO" property="pfAccountNo" jdbcType="VARCHAR" />
+    <result column="PF_DIRECTORY_NO" property="pfDirectoryNo" jdbcType="VARCHAR" />
+    <result column="PF_FILE_ORIGINAL_NAME" property="pfFileOriginalName" jdbcType="VARCHAR" />
+    <result column="PF_FILE_NAME" property="pfFileName" jdbcType="VARCHAR" />
+    <result column="PF_FILE_MD5" property="pfFileMd5" jdbcType="VARCHAR" />
+    <result column="PF_FILE_SIZE" property="pfFileSize" jdbcType="BIGINT" />
+    <result column="PF_FILE_TYPE" property="pfFileType" jdbcType="VARCHAR" />
+    <result column="PF_UPLOAD_TIME" property="pfUploadTime" jdbcType="TIMESTAMP" />
+    <result column="PF_STATUS" property="pfStatus" jdbcType="VARCHAR" />
+    <result column="PF_CLOUD_FILE_NO" property="pfCloudFileNo" jdbcType="VARCHAR" />
+    <result column="PF_REMARK" property="pfRemark" jdbcType="VARCHAR" />
+    <result column="PF_CLOUD_FILE_MD5" property="pfCloudFileMd5" jdbcType="VARCHAR" />
+    <result column="PF_CLOUD_FILE_SIZE" property="pfCloudFileSize" jdbcType="BIGINT" />
+    <result column="PF_STOR_PATH" property="pfStorPath" jdbcType="VARCHAR" />
+    <result column="PF_STOR_FILE_NAME" property="pfStorFileName" jdbcType="VARCHAR" />
+    <result column="FILEEXTENSION" property="fileextension" jdbcType="VARCHAR" />
+    <result column="FILE_CREATE_TIME" property="fileCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

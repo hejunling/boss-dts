@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.common.persistence.mapper.master.BizEntInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.master.BizEntInfo" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="ENT_NO" property="entNo" jdbcType="VARCHAR" />
+    <result column="REG_NO" property="regNo" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="FULLPACKAGE" property="fullpackage" jdbcType="VARCHAR" />
+    <result column="UNIQUENO" property="uniqueno" jdbcType="VARCHAR" />
+    <result column="BIZ_NO" property="bizNo" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

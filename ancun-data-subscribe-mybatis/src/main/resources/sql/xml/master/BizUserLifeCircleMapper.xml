@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.common.persistence.mapper.master.BizUserLifeCircleMapper" >
+  <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.master.BizUserLifeCircle" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="USER_NO" property="userNo" jdbcType="VARCHAR" />
+    <result column="USER_TYPE" property="userType" jdbcType="VARCHAR" />
+    <result column="ENT_NO" property="entNo" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_TYPE" property="accountType" jdbcType="VARCHAR" />
+    <result column="BIZ_NO" property="bizNo" jdbcType="VARCHAR" />
+    <result column="TCID" property="tcid" jdbcType="BIGINT" />
+    <result column="ORG_NO" property="orgNo" jdbcType="VARCHAR" />
+    <result column="RPCODE" property="rpcode" jdbcType="VARCHAR" />
+    <result column="CITY_CODE" property="cityCode" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="RECTIP" property="rectip" jdbcType="VARCHAR" />
+    <result column="OPEN_CANCEL" property="openCancel" jdbcType="VARCHAR" />
+    <result column="SOURCE" property="source" jdbcType="VARCHAR" />
+    <result column="TIMERS" property="timers" jdbcType="TIMESTAMP" />
+    <result column="CALLER_VOICE" property="callerVoice" jdbcType="VARCHAR" />
+    <result column="CALLED_VOICE" property="calledVoice" jdbcType="VARCHAR" />
+    <result column="CALLER_RECORD" property="callerRecord" jdbcType="VARCHAR" />
+    <result column="CALLED_RECORD" property="calledRecord" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="PHONETYPE" property="phonetype" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

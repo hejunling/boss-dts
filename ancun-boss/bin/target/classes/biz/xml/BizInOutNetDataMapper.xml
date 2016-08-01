@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.boss.persistence.biz.BizInOutNetDataMapper">
+    <resultMap id="BaseResultMap" type="com.ancun.boss.pojo.inOutNetCount.InOutData">
+        <result column="DATE_MONTH" property="dateMonth" jdbcType="VARCHAR"/>
+        <result column="CNT" property="cnt" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="queryInBarData" resultMap="BaseResultMap" parameterType="com.ancun.boss.pojo.inOutNetCount.InOutNetQueryInput">
+		SELECT
+			date_format(OPENDATETIME,'%Y-%m') DATE_MONTH,
+			count(USERNO) CNT
+		FROM
+		    BIZ_USER_INFO
+		WHERE
+			OPENDATETIME IS NOT NULL
+		AND USERSTATUS = 1			
+		<if test="startDate !=null and startDate != ''">
+		AND	OPENDATETIME &gt;= #{startDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endDate !=null and endDate != ''">
+		AND OPENDATETIME &lt; DATE_ADD(#{endDate,jdbcType=VARCHAR},INTERVAL 1 MONTH)
+		</if>
+		<if test="business !=null and business !=''">
+        AND BIZ_CODE=#{business,jdbcType=VARCHAR}
+        </if>
+		GROUP BY DATE_MONTH
+		ORDER BY DATE_MONTH
+    </select>
+    <select id="queryOutBarData" resultMap="BaseResultMap" parameterType="com.ancun.boss.pojo.inOutNetCount.InOutNetQueryInput">
+		SELECT
+			date_format(CANCELDATETIME,'%Y-%m') DATE_MONTH,
+			count(USERNO) as CNT
+		FROM
+		    BIZ_USER_INFO
+		WHERE
+			CANCELDATETIME IS NOT NULL
+		AND USERSTATUS = 3		
+		<if test="startDate !=null and startDate != ''">
+		AND	CANCELDATETIME &gt;= #{startDate,jdbcType=VARCHAR}
+		</if>
+		<if test="endDate !=null and endDate != ''">
+		AND CANCELDATETIME &lt; DATE_ADD(#{endDate,jdbcType=VARCHAR},INTERVAL 1 MONTH)
+		</if>
+		<if test="business !=null and business !=''">
+        AND BIZ_CODE=#{business,jdbcType=VARCHAR}
+        </if>
+		GROUP BY DATE_MONTH
+		ORDER BY DATE_MONTH
+    </select>
+
+</mapper>

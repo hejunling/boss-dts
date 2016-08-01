@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.boss.persistence.biz.BizUserInfoBizMapper" >
+
+  
+   <select id="statisticsProfit" parameterType="com.ancun.boss.pojo.statistics.StatisticsProfitCostInput" resultType="String">
+        select ROUND(sum(T.TAOCAN_PRICE),2) from BIZ_USER_INFO U INNER JOIN BIZ_TAOCAN_INFO T
+        ON U.TCID = T.TCID
+        where U.USERSTATUS=1 AND U.PRICETYPE=1 AND T.TAOCAN_STATUS=1 AND T.PRICETYPE=1
+         <if test="business != null and business != ''" >
+             AND U.BIZ_CODE = #{business,jdbcType=VARCHAR}
+          </if>
+          <if test="calledteam != null and calledteam != ''" >
+             AND U.CALLED_TEAM = #{calledteam,jdbcType=VARCHAR}
+          </if>
+        <if test="starttime != null and starttime != ''" >
+             AND U.OPENDATETIME &gt;= #{starttime}
+          </if>
+          <if test="endtime != null and endtime != ''" >
+             AND DATE_FORMAT(U.OPENDATETIME,'%Y-%m') &lt;= #{endtime}
+          </if>
+
+   </select>
+
+    <select id="userOpenCancelStatistic" parameterType="com.ancun.boss.business.pojo.bizuser.UserOpenCancelStatisticInput" resultType="com.ancun.boss.business.pojo.bizuser.UserOpenCancelInfo">
+        SELECT
+        COUNT(ID) AS number,
+        BIZ_NO AS bizno ,
+        STATUS AS status ,
+        INSOURCE AS insource,
+        OFFSOURCE AS offsource,
+        DATE_FORMAT( INTIME, '%Y-%m-%d') as intime,
+        DATE_FORMAT( OFFTIME, '%Y-%m-%d') as offtime
+        FROM
+        BIZ_USER_INFO
+        WHERE
+         1 = 1
+
+        <!-- 业务编号不为空 添加业务查询 -->
+        <if test="bizno != null and bizno != ''" >
+            AND BIZ_NO = #{bizno,jdbcType=VARCHAR}
+        </if>
+
+        <!-- 状态为空，时间查询不为空 -->
+        <if test="status == null or status == ''" >
+            <!-- 开始时间结束时间都不为空 -->
+           <if test="startime !=null and startime != '' and endtime != null and endtime != ''">
+               AND (INTIME BETWEEN #{startime,jdbcType=VARCHAR} AND #{endtime,jdbcType=VARCHAR}
+                     OR OFFTIME BETWEEN #{startime,jdbcType=VARCHAR} AND #{endtime,jdbcType=VARCHAR})
+           </if>
+            <!-- 开始时间不为空，结束时间为空-->
+            <if test="startime !=null and startime != '' and endtime == null or endtime == ''">
+                AND (INTIME &gt;= #{startime,jdbcType=VARCHAR} OR OFFTIME &gt;= #{startime,jdbcType=VARCHAR})
+            </if>
+            <!-- 开始时间为空，结束时间不为空-->
+            <if test="startime !=null and startime != '' and endtime == null or endtime == ''">
+                AND (INTIME &lt;= #{endtime,jdbcType=VARCHAR} OR OFFTIME &lt;= #{endtime,jdbcType=VARCHAR})
+            </if>
+        </if>
+
+        <!--状态不为空 添加状态查询-->
+        <if test="status != null and status != ''" >
+            AND STATUS = #{status,jdbcType=VARCHAR}
+        </if>
+
+        <!--状态为开通状态(1) 添加开通来源查询和开通时间查询-->
+        <if test="status == 1 " >
+
+             <!--开通来源查询-->
+            <if test="source != null and source != ''" >
+                AND INSOURCE = #{source,jdbcType=VARCHAR}
+            </if>
+
+            <!--开通时间查询-->
+            <if test="startime != null and startime != ''" >
+                AND INTIME &gt;= #{startime,jdbcType=VARCHAR}
+            </if>
+            <if test="endtime != null and endtime != ''" >
+                AND INTIME &lt;= #{endtime,jdbcType=VARCHAR}
+            </if>
+
+        </if>
+
+        <!--状态为退订状态(3) 添加退订来源查询和退订时间查询-->
+        <if test="status == 3 " >
+
+            <!--退订来源查询-->
+            <if test="source != null and source != ''" >
+                AND OFFSOURCE = #{source,jdbcType=VARCHAR}
+            </if>
+
+            <!--退订时间查询-->
+            <if test="startime != null and startime != ''" >
+                AND OFFTIME &gt;= #{startime,jdbcType=VARCHAR}
+            </if>
+            <if test="endtime != null and endtime != ''" >
+                AND OFFTIME &lt;= #{endtime,jdbcType=VARCHAR}
+            </if>
+
+        </if>
+
+        <!--分组 group by -->
+
+        <!--如果业务编号为空，根据业务编号和状态分组-->
+        <if test ="bizno == null or bizno == ''">
+            GROUP BY BIZ_NO,`STATUS`
+        </if>
+
+        <!--如果业务编号不为空-->
+        <if test ="bizno != null and bizno != ''">
+
+            <!--如果状态为空，根据状态分组-->
+            <if test="status == null or status == ''">
+                GROUP BY STATUS
+            </if>
+
+            <!--如果状态不为空-->
+            <if test="status != null and status != ''">
+
+                <!--如果来源为空，来源分组-->
+                <if test="source == null or source == ''">
+                    <if test="status == 1">
+                        GROUP BY INSOURCE
+                    </if>
+
+                    <if test="status == 3">
+                        GROUP BY OFFSOURCE
+                    </if>
+
+                </if>
+
+                <!--如果来源不为空，根据时间分组 -->
+                <if test="source != null and source != ''">
+                    <if test="status == 1">
+                        GROUP BY DATE_FORMAT( INTIME, '%Y-%m-%d')
+                    </if>
+
+                    <if test="status == 3">
+                        GROUP BY DATE_FORMAT( OFFTIME, '%Y-%m-%d')
+                    </if>
+                </if>
+
+            </if>
+
+        </if>
+
+    </select>
+ </mapper>

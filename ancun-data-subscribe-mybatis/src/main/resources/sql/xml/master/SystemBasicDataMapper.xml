@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.common.persistence.mapper.master.SystemBasicDataMapper" >
+  <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.master.SystemBasicData" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="MODULE" property="module" jdbcType="VARCHAR" />
+    <result column="CONF_KEY" property="confKey" jdbcType="VARCHAR" />
+    <result column="CONF_VALUE" property="confValue" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

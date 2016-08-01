@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.common.persistence.mapper.sh.ShAccountInfoHistoryMapper" >
+  <resultMap id="UserInfoHistoryMap" type="com.ancun.common.persistence.model.sh.ShBizUserInfoHistory" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="USER_NO" property="userNo" jdbcType="VARCHAR" />
+    <result column="USER_TEL" property="userTel" jdbcType="VARCHAR" />
+    <result column="ACCOUNTTYPE" property="accounttype" jdbcType="VARCHAR" />
+    <result column="PHONETYPE" property="phonetype" jdbcType="VARCHAR" />
+    <result column="RPCODE" property="rpcode" jdbcType="VARCHAR" />
+    <result column="CITYCODE" property="citycode" jdbcType="VARCHAR" />
+    <result column="USERSTATUS" property="userstatus" jdbcType="VARCHAR" />
+    <result column="AREACODE" property="areacode" jdbcType="VARCHAR" />
+    <result column="ORG_NO" property="orgNo" jdbcType="VARCHAR" />
+    <result column="CANCELDATETIME" property="canceldatetime" jdbcType="TIMESTAMP" />
+    <result column="OPENDATETIME" property="opendatetime" jdbcType="TIMESTAMP" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="TAOCANID" property="taocanid" jdbcType="BIGINT" />
+    <result column="CONTACTPHONE" property="contactphone" jdbcType="VARCHAR" />
+    <result column="CALLERFLAG" property="callerflag" jdbcType="VARCHAR" />
+    <result column="CALLEDFLAG" property="calledflag" jdbcType="VARCHAR" />
+    <result column="RECTIPFLAG" property="rectipflag" jdbcType="VARCHAR" />
+    <result column="USERTYPE" property="usertype" jdbcType="VARCHAR" />
+    <result column="ISIGNUPSOURCE" property="isignupsource" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectShBizUserInfoHistory" resultMap="UserInfoHistoryMap"
+          parameterType="com.ancun.datasyn.pojo.userlife.UserLifeInput">
+      SELECT
+        t1.USER_NO,
+        t1.USER_TEL,
+        t1.ACCOUNTTYPE,
+        t1.PHONETYPE,
+        t1.RPCODE,
+        t1.CITYCODE,
+        t1.AREACODE,
+        t1.USERSTATUS,
+        t1.ORG_NO,
+        t1.CANCELDATETIME,
+        t1.OPENDATETIME,
+        t1.REMARK,
+        t1.CONTACTPHONE,
+        t1.TAOCANID,
+        t1.CALLERFLAG,
+        t1.CALLEDFLAG,
+        t1.RECTIPFLAG,
+        t2.USERTYPE,
+        t2.ISIGNUPSOURCE
+    FROM
+        account_info_history t1
+    LEFT JOIN user_info t2 ON t1.USER_NO = t2.USERNO
+    WHERE
+    (
+    t1.UPDATE_TIME &gt;= #{startime}   AND  t1.UPDATE_TIME &lt;= #{endtime}
+    )
+    OR  t1.UPDATE_TIME='0000-00-00 00:00:00'
+
+  </select>
+</mapper>

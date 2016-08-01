@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ancun.common.persistence.mapper.sh.ShRolePermisstionMapper">
+  <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.sh.ShRolePermisstion">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="ROLE_ID" jdbcType="BIGINT" property="roleId" />
+    <result column="PERMISSTION_ID" jdbcType="BIGINT" property="permisstionId" />
+  </resultMap>
+</mapper>

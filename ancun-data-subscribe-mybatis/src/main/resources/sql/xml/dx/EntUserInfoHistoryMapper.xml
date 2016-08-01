@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.common.persistence.mapper.dx.EntUserInfoHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.dx.EntUserInfoHistory" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="UIID" property="uiid" jdbcType="BIGINT" />
+    <result column="USERNO" property="userno" jdbcType="VARCHAR" />
+    <result column="USER_TEL" property="userTel" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="ACCOUNTTYPE" property="accounttype" jdbcType="VARCHAR" />
+    <result column="USERSTATUS" property="userstatus" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="CONTACTNAME" property="contactname" jdbcType="VARCHAR" />
+    <result column="CONTACTPHONE" property="contactphone" jdbcType="VARCHAR" />
+    <result column="FAX" property="fax" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="RECTIPFLAG" property="rectipflag" jdbcType="CHAR" />
+    <result column="CALLERFLAG" property="callerflag" jdbcType="VARCHAR" />
+    <result column="CALLEDFLAG" property="calledflag" jdbcType="VARCHAR" />
+    <result column="TRIAL_START_TIME" property="trialStartTime" jdbcType="TIMESTAMP" />
+    <result column="TRIAL_END_TIME" property="trialEndTime" jdbcType="TIMESTAMP" />
+    <result column="IMPORT_TIME" property="importTime" jdbcType="TIMESTAMP" />
+    <result column="ISIGNUPSOURCE" property="isignupsource" jdbcType="VARCHAR" />
+    <result column="SIGNUPIP" property="signupip" jdbcType="VARCHAR" />
+    <result column="SIGNUPTIME" property="signuptime" jdbcType="TIMESTAMP" />
+    <result column="ACCESSCODE_ACTIVE" property="accesscodeActive" jdbcType="BIGINT" />
+    <result column="PHONETYPE" property="phonetype" jdbcType="VARCHAR" />
+    <result column="RPCODE" property="rpcode" jdbcType="VARCHAR" />
+    <result column="CITYCODE" property="citycode" jdbcType="VARCHAR" />
+    <result column="AREACODE" property="areacode" jdbcType="VARCHAR" />
+    <result column="ORG_NO" property="orgNo" jdbcType="VARCHAR" />
+    <result column="DEFAULTPWDFLAG" property="defaultpwdflag" jdbcType="CHAR" />
+    <result column="OPENDATETIME" property="opendatetime" jdbcType="TIMESTAMP" />
+    <result column="CANCELDATETIME" property="canceldatetime" jdbcType="TIMESTAMP" />
+    <result column="ISREFUND" property="isrefund" jdbcType="VARCHAR" />
+    <result column="REFUNDAMOUNT" property="refundamount" jdbcType="DOUBLE" />
+    <result column="REFUNDREMARK" property="refundremark" jdbcType="VARCHAR" />
+    <result column="SMS_LOGIN" property="smsLogin" jdbcType="VARCHAR" />
+    <result column="SERVER_SETPWD" property="serverSetpwd" jdbcType="VARCHAR" />
+    <result column="TAOCANID" property="taocanid" jdbcType="BIGINT" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="MARKNO" property="markno" jdbcType="VARCHAR" />
+    <result column="CHECKER" property="checker" jdbcType="VARCHAR" />
+    <result column="CALLSOURCE" property="callsource" jdbcType="VARCHAR" />
+    <result column="CUST_ID" property="custId" jdbcType="VARCHAR" />
+    <result column="CALLERVOICE" property="callervoice" jdbcType="VARCHAR" />
+    <result column="CALLEDVOICE" property="calledvoice" jdbcType="VARCHAR" />
+    <result column="CALLERRECORDVOICE" property="callerrecordvoice" jdbcType="VARCHAR" />
+    <result column="CALLEDRECORDVOICE" property="calledrecordvoice" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="CERTIFICATENUM" property="certificatenum" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

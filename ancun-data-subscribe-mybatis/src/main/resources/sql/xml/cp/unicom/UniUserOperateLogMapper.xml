@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.common.persistence.mapper.cp.unicom.UniUserOperateLogMapper" >
+  <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.cp.unicom.UniUserOperateLog" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="CPID" property="cpid" jdbcType="BIGINT" />
+    <result column="OPERATELOGNO" property="operatelogno" jdbcType="VARCHAR" />
+    <result column="LOGINSOURCE" property="loginsource" jdbcType="VARCHAR" />
+    <result column="USERTYPE" property="usertype" jdbcType="VARCHAR" />
+    <result column="OPUSER" property="opuser" jdbcType="VARCHAR" />
+    <result column="LOGCONTENT" property="logcontent" jdbcType="VARCHAR" />
+    <result column="OPCODE" property="opcode" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="OPDATETIME" property="opdatetime" jdbcType="TIMESTAMP" />
+    <result column="IPADDRESS" property="ipaddress" jdbcType="VARCHAR" />
+    <result column="REQUESTURL" property="requesturl" jdbcType="VARCHAR" />
+    <result column="ACCESSID" property="accessid" jdbcType="VARCHAR" />
+    <result column="ACCESSKEY" property="accesskey" jdbcType="VARCHAR" />
+    <result column="OPRECORDNO" property="oprecordno" jdbcType="BIGINT" />
+    <result column="OPCLASSNM" property="opclassnm" jdbcType="VARCHAR" />
+    <result column="OPMETHODNM" property="opmethodnm" jdbcType="VARCHAR" />
+    <result column="OPINTERFACENM" property="opinterfacenm" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

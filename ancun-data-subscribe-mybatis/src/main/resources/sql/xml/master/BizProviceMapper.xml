@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.common.persistence.mapper.master.BizProviceMapper" >
+  <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.master.BizProvice" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="biz_no" property="bizNo" jdbcType="VARCHAR" />
+    <result column="rpcode" property="rpcode" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

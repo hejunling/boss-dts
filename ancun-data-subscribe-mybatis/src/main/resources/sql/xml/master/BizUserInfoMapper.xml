@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.common.persistence.mapper.master.BizUserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.master.BizUserInfo">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        <id column="ID" property="id" jdbcType="BIGINT"/>
+        <result column="USER_NO" property="userNo" jdbcType="VARCHAR"/>
+        <result column="PASSWD" property="passwd" jdbcType="VARCHAR"/>
+        <result column="USER_TYPE" property="userType" jdbcType="VARCHAR"/>
+        <result column="ENT_NO" property="entNo" jdbcType="VARCHAR"/>
+        <result column="ACCOUNT_TYPE" property="accountType" jdbcType="VARCHAR"/>
+        <result column="BIZ_NO" property="bizNo" jdbcType="VARCHAR"/>
+        <result column="TCID" property="tcid" jdbcType="BIGINT"/>
+        <result column="ORG_NO" property="orgNo" jdbcType="VARCHAR"/>
+        <result column="STATUS" property="status" jdbcType="VARCHAR"/>
+        <result column="RPCODE" property="rpcode" jdbcType="VARCHAR"/>
+        <result column="CITY_CODE" property="cityCode" jdbcType="VARCHAR"/>
+        <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
+        <result column="RECTIP" property="rectip" jdbcType="VARCHAR"/>
+        <result column="INTIME" property="intime" jdbcType="TIMESTAMP"/>
+        <result column="INSOURCE" property="insource" jdbcType="VARCHAR"/>
+        <result column="OFFSOURCE" property="offsource" jdbcType="VARCHAR"/>
+        <result column="OFFTIME" property="offtime" jdbcType="TIMESTAMP"/>
+        <result column="CALLER_VOICE" property="callerVoice" jdbcType="VARCHAR"/>
+        <result column="CALLED_VOICE" property="calledVoice" jdbcType="VARCHAR"/>
+        <result column="CALLER_RECORD" property="callerRecord" jdbcType="VARCHAR"/>
+        <result column="CALLED_RECORD" property="calledRecord" jdbcType="VARCHAR"/>
+        <result column="PHONETYPE" property="phonetype" jdbcType="VARCHAR"/>
+        <result column="DEFAULTPWDFLAG" property="defaultpwdflag" jdbcType="VARCHAR"/>
+        <result column="ISREFUND" property="isrefund" jdbcType="VARCHAR"/>
+        <result column="REFUNDAMOUNT" property="refundamount" jdbcType="DOUBLE"/>
+        <result column="REFUNDREMARK" property="refundremark" jdbcType="VARCHAR"/>
+        <result column="SMS_LOGIN" property="smsLogin" jdbcType="VARCHAR"/>
+        <result column="EMAIL" property="email" jdbcType="VARCHAR"/>
+        <result column="BUSINESSTYPE" property="businesstype" jdbcType="VARCHAR"/>
+        <result column="CALLERFLAG" property="callerflag" jdbcType="VARCHAR"/>
+        <result column="CALLEDFLAG" property="calledflag" jdbcType="VARCHAR"/>
+        <result column="REMARK" property="remark" jdbcType="VARCHAR"/>
+        <result column="FAX" property="fax" jdbcType="VARCHAR"/>
+        <result column="FULLPACKAGE" property="fullpackage" jdbcType="VARCHAR"/>
+        <result column="UNIQUENO" property="uniqueno" jdbcType="VARCHAR"/>
+        <result column="OPERATION" property="operation" jdbcType="VARCHAR"/>
+        <result column="modifyTimes" property="modifytimes" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="selectBizUserInfoByBizNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select * FROM   BIZ_USER_INFO where  BIZ_NO = #{bizNo,jdbcType=VARCHAR}
+
+  </select>
+</mapper>

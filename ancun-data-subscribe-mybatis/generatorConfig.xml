@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<!-- 能生成Example
+	<context id="default" targetRuntime="MyBatis3" >
+		<property name="beginningDelimiter" value="`"/>
+		<property name="endingDelimiter" value="`"/>
+
+		<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+			<property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+		</plugin>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://121.43.65.180"
+						userId="test_dx"
+						password="Test_DX_20150310">
+		</jdbcConnection>
+
+		<javaModelGenerator targetPackage="${targetModelPackage}" targetProject="${targetJavaProject}"/>
+
+		<sqlMapGenerator targetPackage="${targetXMLPackage}"  targetProject="${targetResourcesProject}"/>
+
+		<javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}" type="XMLMAPPER" />
+		<table tableName="USER_INFO" ></table>
+
+	</context>-->
+
+
+	<context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+		<!--<context id="default" targetRuntime="MyBatis3" > -->
+		<property name="beginningDelimiter" value="`"/>
+		<property name="endingDelimiter" value="`"/>
+
+		<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+			<property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+		</plugin>
+
+		<!-- 分省链接-->
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+						<!--connectionURL="jdbc:mysql://121.43.65.180"-->
+						<!--userId="test_dx"-->
+						<!--password="Test_DX_20150310">-->
+		<!--</jdbcConnection>-->
+
+		<!-- BOSS 系统 -->
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+						<!--connectionURL="jdbc:mysql://121.43.65.180"-->
+						<!--userId="test_ac_boss"-->
+						<!--password="Actest423kwzf12sdfboss42ssdfe">-->
+		<!--</jdbcConnection>-->
+
+		<!-- 上海链接 -->
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+						<!--connectionURL="jdbc:mysql://121.43.65.180"-->
+						<!--userId="1259297631843881_AC_V2"-->
+						<!--password="ancun_v2_20141103">-->
+		<!--</jdbcConnection>-->
+
+		<!-- CPTelecom -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://121.43.65.180"
+						userId="1259297631843881_AC_CP_DX"
+						password="ac_cp_dx_20141030">
+		</jdbcConnection>
+
+		<!-- CPUnicom -->
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+						<!--connectionURL="jdbc:mysql://121.43.65.180"-->
+						<!--userId="1259297631843881_ANCUN_CP"-->
+						<!--password="ac_cp_20140819">-->
+		<!--</jdbcConnection>-->
+		
+		
+
+		<javaModelGenerator targetPackage="${targetModelPackage}" targetProject="${targetJavaProject}"/>
+
+		<sqlMapGenerator targetPackage="${targetXMLPackage}"  targetProject="${targetResourcesProject}"/>
+
+		<javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}" type="XMLMAPPER" />
+
+		<!--<table tableName="USER_INFO" domainObjectName="UniUserInfo"></table>-->
+		<!--<table tableName="USER_INFO" ></table>-->
+		<!--<table tableName="ENT_USER_INFO" ></table>-->
+		<!--<table tableName="USER_INFO_HISTORY" domainObjectName="UniUserInfoHistory"></table>-->
+		<!--
+		<table tableName="account_info" domainObjectName="ShAccountInfo"></table>
+		<table tableName="account_info_history" domainObjectName="ShAccountInfoHistory"></table>
+		<table tableName="role_permisstion" domainObjectName="ShRolePermisstion"></table>
+		<table tableName="record_org" domainObjectName="ShRecordOrg"></table>
+		<table tableName="record_permisstion" domainObjectName="ShRecordPermisstion"></table>
+		<table tableName="record_role" domainObjectName="ShRecordRole"></table>
+		<table tableName="role_permisstion" domainObjectName="ShRolePermisstion"></table>
+		-->
+		<!--<table tableName="user_taocan" domainObjectName="ShUserTaocan"></table>-->
+		<!--<table tableName="BIZ_COMBO_INFO" ></table>-->
+		<!--<table tableName="BIZ_ENT_INFO" ></table>-->
+		<!--<table tableName="BIZ_PERSON_INFO" ></table>-->
+		<!--<table tableName="BIZ_PROVICE" ></table>-->
+		<!--<table tableName="BIZ_SYN_RECORD" ></table>-->
+		<!--<table tableName="BIZ_TIMER_CONFIG" ></table>-->
+		<!--<table tableName="BIZ_USER_INFO" ></table>-->
+		<!--<table tableName="BIZ_USER_LIFE_CIRCLE" ></table>-->
+		<!--<table tableName="BIZ_USER_VOICE_INFO" ></table>-->
+		<!--<table tableName="BIZ_TIMER_CONFIG" domainObjectName="UniUserVoiceInfo"></table>-->
+		<!--<table tableName="USER_VOICE_INFO_HISTORY" domainObjectName="UniUserVoiceInfoHistory"></table>-->
+		<!--<table tableName="USER_FILE" domainObjectName="UniUserFile"></table>-->
+		<!--<table tableName="USER_FILE_HISTORY" domainObjectName="UniUserFileHistory"></table>-->
+
+
+		<!--<table tableName="USER_OPERATELOG" domainObjectName="UniUserOperateLog"></table>-->
+
+		<table tableName="user_info" domainObjectName="TelUserInfo"/>
+		<table tableName="user_voice_info" domainObjectName="TelUserVoiceInfo"/>
+		<table tableName="user_info_history" domainObjectName="TelUserInfoHistory"/>
+
+	</context>
+</generatorConfiguration>

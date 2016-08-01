@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.boss.persistence.biz.mapper.CallQualityMapper">
+    <resultMap id="BaseResultMap" type="com.ancun.boss.pojo.callQualityInfo.CallQualityInfo">
+        <id column="ID" jdbcType="BIGINT" property="id" />
+        <result column="CHECK_USERNO" jdbcType="VARCHAR" property="checkUserno" />
+        <result column="CHECKED_USERNO" jdbcType="VARCHAR" property="checkedUserno" />
+        <result column="CHECK_USERNAME" jdbcType="VARCHAR" property="checkUsername" />
+        <result column="CHECKED_USERNAME" jdbcType="VARCHAR" property="checkedUsername" />
+        <result column="CHECK_TIME" jdbcType="TIMESTAMP" property="checkTime" />
+        <result column="DATUM_POINT" jdbcType="VARCHAR" property="datumPoint" />
+        <result column="SERVICE_ATTITUDE" jdbcType="INTEGER" property="serviceAttitude" />
+        <result column="BUSINESS_EFFICIENCY" jdbcType="INTEGER" property="businessEfficiency" />
+        <result column="STANDARD_OPERATION" jdbcType="INTEGER" property="standardOperation" />
+        <result column="SERVICE_SKILLS" jdbcType="INTEGER" property="serviceSkills" />
+        <result column="TOTAL_SCORE" jdbcType="INTEGER" property="totalScore" />
+        <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+        <result column="CALL_RECORD_NO" jdbcType="INTEGER" property="callRecordNo" />
+        <result column="ASK_QUESTION" jdbcType="VARCHAR" property="askQuestion" />
+        <result column="TEL_TIME" jdbcType="TIMESTAMP" property="telTime" />
+        <result column="TEL_NO" jdbcType="VARCHAR" property="telNo" />
+    </resultMap>
+
+    <select id="selectByRequest" parameterType="com.ancun.boss.pojo.callQualityInfo.CallQualityInput" resultMap="BaseResultMap">
+        SELECT DISTINCT
+        CQI.ID,
+        CQI.CHECK_USERNO,
+        CQI.CHECKED_USERNO,
+        CQI.CHECK_TIME,
+        CQI.DATUM_POINT,
+        CQI.SERVICE_ATTITUDE,
+        CQI.BUSINESS_EFFICIENCY,
+        CQI.STANDARD_OPERATION,
+        CQI.SERVICE_SKILLS,
+        CQI.TOTAL_SCORE,
+        CQI.REMARK,
+        CQI.ASK_QUESTION ,
+        CQI.CALL_RECORD_NO,
+        CQI.TEL_TIME,
+        CQI.TEL_NO,
+        SUI1.USERNAME AS CHECK_USERNAME,
+        SUI2.USERNAME AS CHECKED_USERNAME
+        FROM
+        CALL_QUALITY_INFO AS CQI
+        INNER JOIN SYSTEM_USER_INFO AS SUI1 ON CQI.CHECK_USERNO = SUI1.USERNO
+        INNER JOIN SYSTEM_USER_INFO AS SUI2 ON CQI.CHECKED_USERNO = SUI2.USERNO
+        WHERE
+        1 = 1
+        <if test="checkUserno != null and checkUserno !=''" >
+            AND  CQI.CHECK_USERNO = #{checkUserno,jdbcType=VARCHAR}
+        </if>
+        <if test="checkedUserno != null and checkedUserno !=''" >
+            AND CQI.CHECKED_USERNO = #{checkedUserno,jdbcType=VARCHAR}
+        </if>
+        <if test="beginCheckTime != null and beginCheckTime !=''" >
+            AND  CQI.CHECK_TIME &gt;= #{beginCheckTime,jdbcType=VARCHAR}
+        </if>
+        <if test="endCheckTime !=null and endCheckTime !=''">
+            AND  CQI.CHECK_TIME &lt;= #{endCheckTime,jdbcType=VARCHAR}
+        </if>
+        <if test="beginTelTime != null and beginTelTime !=''" >
+            AND  CQI.TEL_TIME &gt;= #{beginTelTime,jdbcType=VARCHAR}
+        </if>
+        <if test="endTelTime !=null and endTelTime !=''">
+            AND  CQI.TEL_TIME &lt;= #{endTelTime,jdbcType=VARCHAR}
+        </if>
+        <if test="telNo != null and telNo !=''" >
+            AND  CQI.TEL_NO = #{telNo,jdbcType=VARCHAR}
+        </if>
+            ORDER BY CQI.ID DESC
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+      SELECT DISTINCT
+      CQI.ID,
+      CQI.CHECK_USERNO,
+      CQI.CHECKED_USERNO,
+      CQI.CHECK_TIME,
+      CQI.DATUM_POINT,
+      CQI.SERVICE_ATTITUDE,
+      CQI.BUSINESS_EFFICIENCY,
+      CQI.STANDARD_OPERATION,
+      CQI.SERVICE_SKILLS,
+      CQI.TOTAL_SCORE,
+      CQI.REMARK,
+      CQI.ASK_QUESTION ,
+      CQI.CALL_RECORD_NO,
+      CQI.TEL_TIME,
+      CQI.TEL_NO,
+      SUI1.USERNAME AS CHECK_USERNAME,
+      SUI2.USERNAME AS CHECKED_USERNAME
+      FROM
+      CALL_QUALITY_INFO AS CQI
+      INNER JOIN SYSTEM_USER_INFO AS SUI1 ON CQI.CHECK_USERNO = SUI1.USERNO
+      INNER JOIN SYSTEM_USER_INFO AS SUI2 ON CQI.CHECKED_USERNO = SUI2.USERNO
+      where CQI.ID = #{id,jdbcType=BIGINT}
+  </select>
+
+    <!--月平均分-->
+    <select id="statisticsMonthAverage" parameterType="com.ancun.boss.pojo.callQualityInfo.CallQualityStatisticsInput" resultType="com.ancun.boss.pojo.callQualityInfo.CallQualityMonthStatisticsInfo">
+        SELECT
+        <if test="department == null  or department ==''" >
+        CQI.CHECKED_USERNO AS checkedUserno,
+        SUI1.USERNAME AS checkedUsername,
+        </if>
+        SUM(CQI.TOTAL_SCORE) AS checkScore
+        ,SUM(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '1' THEN TOTAL_SCORE END) / COUNT(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '1' THEN CQI.TOTAL_SCORE END) AS januaryAverage
+        ,SUM(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '2' THEN TOTAL_SCORE  END) / COUNT(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '2' THEN CQI.TOTAL_SCORE END) AS februaryAverage
+        ,SUM(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '3' THEN TOTAL_SCORE END) / COUNT(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '3' THEN CQI.TOTAL_SCORE END) AS marchAverage
+        ,SUM(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '4' THEN TOTAL_SCORE  END) / COUNT(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '4' THEN CQI.TOTAL_SCORE END) AS aprilAverage
+        ,SUM(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '5' THEN TOTAL_SCORE END) / COUNT(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '5' THEN CQI.TOTAL_SCORE END) AS mayAverage
+        ,SUM(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '6' THEN TOTAL_SCORE  END) / COUNT(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '6' THEN CQI.TOTAL_SCORE END) AS juneAverage
+        ,SUM(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '7' THEN TOTAL_SCORE END) / COUNT(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '7' THEN CQI.TOTAL_SCORE END) AS julyAverage
+        ,SUM(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '8' THEN TOTAL_SCORE  END) / COUNT(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '8' THEN CQI.TOTAL_SCORE END) AS augustAverage
+        ,SUM(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '9' THEN TOTAL_SCORE END) / COUNT(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '9' THEN CQI.TOTAL_SCORE END) AS septemberAverage
+        ,SUM(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '10' THEN TOTAL_SCORE  END) / COUNT(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '10' THEN CQI.TOTAL_SCORE END) AS octoberAverage
+        ,SUM(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '11' THEN TOTAL_SCORE END) / COUNT(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '11' THEN CQI.TOTAL_SCORE END) AS novemberAverage
+        ,SUM(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '12' THEN TOTAL_SCORE  END) / COUNT(CASE WHEN EXTRACT(MONTH  FROM CQI.check_time) = '12' THEN CQI.TOTAL_SCORE END) AS decemberAverage
+        FROM
+        CALL_QUALITY_INFO AS CQI
+        INNER JOIN SYSTEM_USER_INFO AS SUI1 ON CQI.CHECKED_USERNO = SUI1.USERNO
+        WHERE
+        1 = 1
+        <if test="checkedUserno != null and checkedUserno !=''" >
+            AND CQI.CHECKED_USERNO = #{checkedUserno,jdbcType=VARCHAR}
+        </if>
+        <if test="year != null  and year !=''" >
+            AND  EXTRACT(YEAR FROM CQI.check_time) = #{year,jdbcType=VARCHAR}
+        </if>
+        <!--如果部门为空,不要根据被质检人编号分组 -->
+        <if test="department == null  or department ==''" >
+        GROUP BY  CQI.CHECKED_USERNO;
+        </if>
+    </select>
+
+    <!--季度平均分-->
+    <select id="statisticsQuarterAverage" parameterType="com.ancun.boss.pojo.callQualityInfo.CallQualityStatisticsInput" resultType="com.ancun.boss.pojo.callQualityInfo.CallQualityQuarterStatisticsInfo">
+        SELECT
+        <if test="department == null  or department ==''" >
+            CQI.CHECKED_USERNO AS checkedUserno,
+            SUI1.USERNAME AS checkedUsername,
+        </if>
+        SUM(CQI.TOTAL_SCORE) AS checkScore
+        ,SUM(CASE WHEN EXTRACT(QUARTER  FROM CQI.check_time) = '1' THEN TOTAL_SCORE END) / COUNT(CASE WHEN EXTRACT(QUARTER  FROM CQI.check_time) = '1' THEN CQI.TOTAL_SCORE END) AS oneQuarter
+        ,SUM(CASE WHEN EXTRACT(QUARTER  FROM CQI.check_time) = '2' THEN TOTAL_SCORE  END) / COUNT(CASE WHEN EXTRACT(QUARTER  FROM CQI.check_time) = '2' THEN CQI.TOTAL_SCORE END) AS twoQuarter
+        ,SUM(CASE WHEN EXTRACT(QUARTER  FROM CQI.check_time) = '3' THEN TOTAL_SCORE END) / COUNT(CASE WHEN EXTRACT(QUARTER  FROM CQI.check_time) = '3' THEN CQI.TOTAL_SCORE END) AS threeQuarter
+        ,SUM(CASE WHEN EXTRACT(QUARTER  FROM CQI.check_time) = '4' THEN TOTAL_SCORE END) / COUNT(CASE WHEN EXTRACT(QUARTER  FROM CQI.check_time) = '4' THEN CQI.TOTAL_SCORE END) AS fourQuarter
+        FROM
+        CALL_QUALITY_INFO AS CQI
+        INNER JOIN SYSTEM_USER_INFO AS SUI1 ON CQI.CHECKED_USERNO = SUI1.USERNO
+        WHERE
+        1 = 1
+        <if test="checkedUserno != null and checkedUserno !=''" >
+            AND CQI.CHECKED_USERNO = #{checkedUserno,jdbcType=VARCHAR}
+        </if>
+        <if test="year != null  and year !=''" >
+            AND  EXTRACT(YEAR FROM CQI.check_time) = #{year,jdbcType=VARCHAR}
+        </if>
+        <!--如果部门为空,不要根据被质检人编号分组 -->
+        <if test="department == null  or department ==''" >
+            GROUP BY  CQI.CHECKED_USERNO;
+        </if>
+    </select>
+
+    <!--半年个人平均分-->
+    <select id="statisticsHalfYearAverage" parameterType="com.ancun.boss.pojo.callQualityInfo.CallQualityStatisticsInput" resultType="com.ancun.boss.pojo.callQualityInfo.CallQualityHalfYearStatisticsInfo">
+        SELECT
+        <if test="department == null  or department ==''" >
+            CQI.CHECKED_USERNO AS checkedUserno,
+            SUI1.USERNAME AS checkedUsername,
+        </if>
+        SUM(CQI.TOTAL_SCORE) AS checkScore
+        ,SUM(CASE WHEN EXTRACT(QUARTER  FROM CQI.check_time) IN (1,2) THEN TOTAL_SCORE END)/ COUNT(CASE WHEN EXTRACT(QUARTER  FROM CQI.check_time) IN (1,2) THEN CQI.TOTAL_SCORE END) AS firstHalfYear
+        ,SUM(CASE WHEN EXTRACT(QUARTER  FROM CQI.check_time) IN (3,4) THEN TOTAL_SCORE END)/ COUNT(CASE WHEN EXTRACT(QUARTER  FROM CQI.check_time) IN (3,4) THEN CQI.TOTAL_SCORE END) AS secondHalfYear
+        FROM
+        CALL_QUALITY_INFO AS CQI
+        INNER JOIN SYSTEM_USER_INFO AS SUI1 ON CQI.CHECKED_USERNO = SUI1.USERNO
+        WHERE
+        1 = 1
+        <if test="checkedUserno != null and checkedUserno !=''" >
+            AND CQI.CHECKED_USERNO = #{checkedUserno,jdbcType=VARCHAR}
+        </if>
+        <if test="year != null  and year !=''" >
+            AND  EXTRACT(YEAR FROM CQI.check_time) = #{year,jdbcType=VARCHAR}
+        </if>
+        <!--如果部门为空,不要根据被质检人编号分组 -->
+        <if test="department == null  or department ==''" >
+            GROUP BY  CQI.CHECKED_USERNO;
+        </if>
+    </select>
+
+    <!--年平均-->
+    <select id="statisticsYearAverage" parameterType="com.ancun.boss.pojo.callQualityInfo.CallQualityStatisticsInput" resultType="com.ancun.boss.pojo.callQualityInfo.CallQualityYearStatisticsInfo">
+        SELECT
+        <if test="department == null  or department ==''" >
+            CQI.CHECKED_USERNO AS checkedUserno,
+            SUI1.USERNAME AS checkedUsername,
+        </if>
+        SUM(CQI.TOTAL_SCORE) AS checkScore
+        ,SUM(CASE WHEN EXTRACT(YEAR  FROM CQI.check_time) THEN TOTAL_SCORE END) / COUNT(CASE WHEN EXTRACT(YEAR  FROM CQI.check_time)  THEN CQI.TOTAL_SCORE END) AS yearAverage
+        FROM
+        CALL_QUALITY_INFO AS CQI
+        INNER JOIN SYSTEM_USER_INFO AS SUI1 ON CQI.CHECKED_USERNO = SUI1.USERNO
+        WHERE
+        1 = 1
+        <if test="checkedUserno != null and checkedUserno !=''" >
+            AND CQI.CHECKED_USERNO = #{checkedUserno,jdbcType=VARCHAR}
+        </if>
+        <if test="year != null  and year !=''" >
+            AND  EXTRACT(YEAR FROM CQI.check_time) = #{year,jdbcType=VARCHAR}
+        </if>
+        <!--如果部门为空,不要根据被质检人编号分组 -->
+        <if test="department == null  or department ==''" >
+            GROUP BY  CQI.CHECKED_USERNO;
+        </if>
+    </select>
+
+</mapper>

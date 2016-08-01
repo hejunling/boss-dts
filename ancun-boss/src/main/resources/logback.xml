@@ -1,0 +1,37 @@
+<configuration debug="false">
+  <!-- 日志目录路径 -->
+  <property name="logDir" value="E:\\logs\\ancun-boss"/>
+  <!-- 日志最大的历史 30天 -->
+  <property name="maxHistory" value="30"/>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- INFO级别日志 appender -->
+  <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 过滤器，只记录INFO级别的日志 -->
+    <!--<filter class="ch.qos.logback.classic.filter.LevelFilter">  -->
+    <!--<level>INFO</level>  -->
+    <!--<onMatch>ACCEPT</onMatch>  -->
+    <!--<onMismatch>DENY</onMismatch>  -->
+    <!--</filter>  -->
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!-- 按天回滚 daily -->
+      <fileNamePattern>${logDir}/%d{yyyy-MM-dd}/info.log</fileNamePattern>
+      <!-- 日志最大的历史 30天 -->
+      <maxHistory>${maxHistory}</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="org.apache.http.wire" level="${log.level.ancun:-ERROR}" />
+
+  <root level="${logLevel:-info}">
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="INFO" />
+  </root>
+</configuration>

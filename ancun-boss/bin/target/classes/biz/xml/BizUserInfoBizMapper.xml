@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.boss.persistence.biz.BizUserInfoBizMapper" >
+
+  
+   <select id="statisticsProfit" parameterType="com.ancun.boss.pojo.statistics.StatisticsProfitCostInput" resultType="String">
+	select ROUND(sum(T.TAOCAN_PRICE),2) from BIZ_USER_INFO U INNER JOIN BIZ_TAOCAN_INFO T
+	ON U.TCID = T.TCID
+	where U.USERSTATUS=1 AND U.PRICETYPE=1 AND T.TAOCAN_STATUS=1 AND T.PRICETYPE=1
+	 <if test="business != null and business != ''" >
+         AND U.BIZ_CODE = #{business,jdbcType=VARCHAR}
+      </if>
+      <if test="calledteam != null and calledteam != ''" >
+         AND U.CALLED_TEAM = #{calledteam,jdbcType=VARCHAR}
+      </if>
+	<if test="starttime != null and starttime != ''" >
+         AND U.OPENDATETIME &gt;= #{starttime}
+      </if>
+      <if test="endtime != null and endtime != ''" >
+         AND DATE_FORMAT(U.OPENDATETIME,'%Y-%m') &lt;= #{endtime}
+      </if>
+
+</select>
+</mapper>

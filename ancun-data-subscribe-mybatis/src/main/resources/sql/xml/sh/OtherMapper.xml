@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.common.persistence.mapper.sh.OtherMapper" >
+
+ 	<select id="getOpenSeq" resultType="java.lang.Object" parameterType="java.lang.String" >
+    	select max(aih.OPEN_SEQ) from account_info_history aih where aih.USER_TEL = ${_parameter}
+  	</select>
+
+ 	<select id="selectTcType" resultType="java.lang.Object" parameterType="java.lang.Long" >
+    	SELECT t.TAOCAN_TYPE FROM user_taocan t where t.TCID = ${_parameter}
+  	</select>
+
+</mapper>

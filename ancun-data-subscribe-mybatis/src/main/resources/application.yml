@@ -1,0 +1,154 @@
+# 应用信息(app info)
+info:
+  app:
+    name: 数据订阅中心
+    description: 数据订阅中心
+    version: 1.0.0
+
+# 日志相关配置(logging setting)
+logging:
+  #path: E://logs//data-subscribe
+  path: /data/logs/project/boss.subscribe
+
+# mybatis配置相关
+mybatis:
+  mapper-locations: classpath*:sql/xml/**/*Mapper.xml
+  type-aliases-package: com.ancun.common.persistence.model
+
+# spring 相关配置
+spring:
+  # JMX配置项
+  jmx:
+    # 禁用JMX端点来管理应用
+    enabled: false
+
+  # 运行环境
+  profiles:
+    # 开发环境
+    #active: dev
+    active: test
+
+  # datasource类指定
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    # 主数据源配置
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://121.43.65.180:3306?autoCommit=false&useUnicode=true&characterEncoding=utf-8
+    username: test_ac_boss
+    password: Actest423kwzf12sdfboss42ssdfe
+
+    # 所有数据源共通配置部分
+    maximum-pool-size: 100
+    max-idle: 10
+    max-wait: 10000
+    min-idle: 5
+    initial-size: 5
+    validation-query: SELECT 1
+    test-on-borrow: false
+    test-while-idle: true
+    time-between-eviction-runs-millis: 18800
+
+  #activemq 相关配置
+  activemq:
+#    #指定ActiveMQ broker的URL，默认自动生成.
+    broker-url: tcp://127.0.0.1:61616
+#    user: admin
+#    password: admin
+#    #是否是内存模式，默认为true.
+    in-memory: false
+#    #是否创建PooledConnectionFactory，而非ConnectionFactory，默认false
+#    pooled: false
+
+biz:
+  datasource:
+    names: dxProvince, ltProvince, shV2, cpTelecom, cpUnicom
+    # 分省电信数据源
+    dxProvince:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://121.43.65.180:3306?zeroDateTimeBehavior=convertToNull&autoCommit=false&useUnicode=true&characterEncoding=utf-8
+      username: test_dx
+      password: Test_DX_20150310
+#      password: txdbM5SrkQYWrRw0HiEv2KbEkjK3Sh9c
+
+    # 分省联通数据源
+    ltProvince:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://121.43.65.180:3306?zeroDateTimeBehavior=convertToNull&autoCommit=false&useUnicode=true&characterEncoding=utf-8
+      username: test_lt_province
+      password: Test_LT_20150413
+      #password: kfu8CFZby98vAqu0bxBVq6bEkjK3Sh9c
+
+    # 上海音证宝数据源
+    shV2:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://121.43.65.180:3306?zeroDateTimeBehavior=convertToNull&autoCommit=false&useUnicode=true&characterEncoding=utf-8
+      username: 1259297631843881_AC_V2
+      password: ancun_v2_20141103
+
+    # CP电信
+    cpTelecom:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://121.43.65.180:3306?zeroDateTimeBehavior=convertToNull&autoCommit=false&useUnicode=true&characterEncoding=utf-8
+      username: 1259297631843881_AC_CP_DX
+      password: ac_cp_dx_20141030
+
+    # CP联通
+    cpUnicom:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://121.43.65.180:3306?zeroDateTimeBehavior=convertToNull&autoCommit=false&useUnicode=true&characterEncoding=utf-8
+      username: 1259297631843881_ANCUN_CP
+      password: ac_cp_20140819
+
+# 服务器配置
+server:
+  port: 8081
+  contextPath: /
+
+# 服务器端点配置
+endpoints:
+  shutdown:
+    enabled: true
+
+# 定时汇报配置相关
+report:
+  threadsForReport: 3
+  address: http://localhost:8081/health
+  period: 5
+  emails: xieyushi@ancun.com
+
+# 应用中共通配置项
+common:
+  threadsForEventBus: 10
+  encrypt: normal
+  visiblePassword: true
+  datakey: a7SDfrdDKRBe5FaN2n3GftLKKtkfZS5GsdEjfdjsyBHldVhqwIxkRcI2uRoE+bPgzRUBdyKokxscobiP2fIIvmQf+DueOBr87zJzs8FcwABTP3/wx7t+eHHhYseEfnq3
+  datakeyforbootstrap: a7SDfrdDKRBe5FaN2n3GftLKKtkfZS5GsdEjfdjsyBFTOX/RNgpB/e47qWrEdCEt
+
+# 邮件发送相关配置
+emailConf:
+  onOff: true
+  serverUrl: http://192.168.0.200:7080
+  sendTo: wengzhenying@ancun.com
+  subject: 【DTS数据消费分发结果】
+
+#activemq cosumer线程池
+consumer:
+  #corePoolSize: 5
+  maxPoolSize: 100
+  voicePoolSize: 40
+  taocanPoolSize: 2
+  userLifePoolSize: 40
+  userPoolSize: 40
+
+# activityMq 队列开启调度配置 add by zkai on 2016/06/07
+queueConf:
+  voiceOnOff: true
+  taocanOnOff: true
+  userOnOff: true
+  userLifeOnOff: true

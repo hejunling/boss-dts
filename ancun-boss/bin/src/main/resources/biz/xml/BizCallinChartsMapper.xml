@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.boss.persistence.biz.mapper.BizCallinChartsMapper" >
+	<resultMap id="BaseResultMap" type="com.ancun.boss.pojo.callincharts.CallinChartsOutput">
+        <id column="ID" property="id" jdbcType="BIGINT" />
+    	<result column="CALLTIME" property="callTime" jdbcType="VARCHAR" />
+    	<result column="BUSINESS" property="business" jdbcType="VARCHAR" />
+    	<result column="CALL_TIME" property="callTimes" jdbcType="VARCHAR" />
+    	<result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR"/>
+    </resultMap>
+    
+    <select id="queryCallinChartsCountList" parameterType="com.ancun.boss.pojo.callincharts.CallinChartsInput" resultMap="BaseResultMap">
+  
+ 	SELECT DISTINCT
+ 	 <!-- t2.month, -->
+ 	 t2.count,
+ 	 t2.mark,
+ 	 t2.space,
+	 t3.`NAME` BUSINESS_NAME
+		FROM
+			(
+				SELECT
+					<!-- DATE_FORMAT(t1.CALLTIME, "%Y-%m-%d") AS month, -->
+					count(*) AS count,
+					(DATEDIFF(#{callinTimeEnd},#{callinTimeStart}) + 1) as space,
+					1 as mark,
+					t1.BUSINESS
+				FROM
+					CALL_IN_RECORD t1
+				WHERE
+					1 = 1
+					<if test="business != null and business != ''">
+					 	 AND t1.BUSINESS = #{business,jdbcType=VARCHAR}
+					 </if>
+					 <if test="callinTimeStart != null and callinTimeStart != ''">
+					 	 AND t1.CALLTIME &gt;= #{callinTimeStart,jdbcType=VARCHAR}
+					 </if>
+					 <if test="callinTimeEnd != null and callinTimeEnd != ''">
+					 	 AND t1.CALLTIME &lt;= date_add(#{callinTimeEnd,jdbcType=VARCHAR}, INTERVAL 1 DAY)
+					 </if>
+				GROUP BY
+					t1.BUSINESS
+			) t2
+		LEFT JOIN SYSTEM_BASIC_CONFIG t3 ON t2.BUSINESS = t3.`CODE`
+		WHERE
+			1 = 1
+		AND t3.MOUDLECODE = 'BIZ-NAME'
+		UNION ALL
+		SELECT DISTINCT
+ 	 <!-- t2.month, -->
+ 	 t2.count,
+ 	 t2.mark,
+ 	 t2.space,
+	 t3.`NAME` BUSINESS_NAME
+		FROM
+			(
+				SELECT
+					count(*) AS count,
+					(DATEDIFF(#{callinTimeEnd},#{callinTimeStart}) + 1) as space,
+					2 as mark,
+					t1.BUSINESS
+				FROM
+					CANCEL_RECORD t1
+				WHERE
+					1 = 1
+					<if test="business != null and business != ''">
+					 	 AND t1.BUSINESS = #{business,jdbcType=VARCHAR}
+					 </if>
+					 <if test="callinTimeStart != null and callinTimeStart != ''">
+					 	 AND t1.CALL_TIME &gt;= #{callinTimeStart,jdbcType=VARCHAR}
+					 </if>
+					 <if test="callinTimeEnd != null and callinTimeEnd != ''">
+					 	 AND t1.CALL_TIME &lt;= date_add(#{callinTimeEnd,jdbcType=VARCHAR}, INTERVAL 1 DAY)
+					 </if>
+				GROUP BY
+					t1.BUSINESS
+			) t2
+		LEFT JOIN SYSTEM_BASIC_CONFIG t3 ON t2.BUSINESS = t3.`CODE`
+		WHERE
+			1 = 1
+		AND t3.MOUDLECODE = 'BIZ-NAME'
+  </select>
+  <!-- <select id="queryCancelChartsCountList" parameterType="com.ancun.boss.pojo.callincharts.CallinChartsInput" resultMap="BaseResultMap">
+ 	SELECT DISTINCT
+ 	 t2.month,
+ 	 t2.count,
+ 	 t2.mark,
+ 	 t2.space,
+	 t3.`NAME` BUSINESS_NAME
+		FROM
+			(
+				SELECT
+					DATE_FORMAT(t1.CALL_TIME, "%Y-%m-%d") AS month,
+					count(*) AS count,
+					(DATEDIFF(#{callinTimeEnd},#{callinTimeStart}) + 1) as space,
+					2 as mark,
+					t1.BUSINESS
+				FROM
+					CANCEL_RECORD t1
+				WHERE
+					1 = 1
+					<if test="business != null and business != ''">
+					 	 AND t1.BUSINESS = #{business,jdbcType=VARCHAR}
+					 </if>
+					 <if test="callinTimeStart != null and callinTimeStart != ''">
+					 	 AND t1.CALL_TIME &gt;= #{callinTimeStart,jdbcType=VARCHAR}
+					 </if>
+					 <if test="callinTimeEnd != null and callinTimeEnd != ''">
+					 	 AND t1.CALL_TIME &lt;= date_add(#{callinTimeEnd,jdbcType=VARCHAR}, INTERVAL 1 DAY)
+					 </if>
+				GROUP BY
+					t1.BUSINESS
+			) t2
+		LEFT JOIN SYSTEM_BASIC_CONFIG t3 ON t2.BUSINESS = t3.`CODE`
+		WHERE
+			1 = 1
+		AND t3.MOUDLECODE = 'BIZ-NAME'	
+  </select> -->
+
+</mapper>

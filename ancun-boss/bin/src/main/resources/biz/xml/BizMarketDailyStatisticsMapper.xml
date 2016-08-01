@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.boss.persistence.biz.BizMarketDailyStatisticsMapper">
+    <resultMap id="BaseResultMap" type="com.ancun.boss.pojo.statistics.MarketDailyStatistics">
+        <result column="SEATS_NUMBERS" property="seatsNumbers" jdbcType="VARCHAR"/>
+        <result column="CALLED_NUMBERS" property="calledNumbers" jdbcType="VARCHAR"/>
+        <result column="CONNECT_NUMBERS" property="connectNumbers" jdbcType="VARCHAR"/>
+        <result column="SUCCESS_DAILYS" property="successDailys" jdbcType="VARCHAR"/>
+        <result column="CONNECTED_AVG" property="connectedAvg" jdbcType="VARCHAR"/>
+        <result column="SUCCESS_AVG" property="successAvg" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_NAME" property="businessName" jdbcType="VARCHAR"/>
+        <result column="CALLEDTEAM_NAME" property="calledTeamName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="statisticsDetail" resultMap="BaseResultMap" parameterType="com.ancun.boss.pojo.market.MarketDailyInput">
+        SELECT
+            t2.SEATS_NUMBERS,
+            t2.CALLED_NUMBERS,
+            t2.CONNECT_NUMBERS,
+            t2.SUCCESS_DAILYS,
+            t2.CONNECTED_AVG,
+            t2.SUCCESS_AVG,
+            t3.`NAME` BUSINESS_NAME,
+            t4.`NAME` CALLEDTEAM_NAME
+        FROM
+            (
+                SELECT
+                    SUM(t1.SEATS_NUMBER) SEATS_NUMBERS,
+                    SUM(t1.CALLED_NUMBER) CALLED_NUMBERS,
+                    SUM(t1.CONNECT_NUMBER) CONNECT_NUMBERS,
+                    SUM(t1.SUCCESS_DAILY) SUCCESS_DAILYS,
+                    ROUND(AVG(t1.CONNECTED_AVG), 2) CONNECTED_AVG,
+                    ROUND(AVG(t1.SUCCESS_AVG), 2) SUCCESS_AVG,
+                    t1.BUSINESS,
+                    t1.CALLED_TEAM
+                FROM
+                    MARKET_DAILY t1
+                WHERE
+                    1 = 1
+                    <if test="business != null and business !=''">
+                        AND t1.BUSINESS = #{business,jdbcType=VARCHAR}
+                    </if>
+                    <if test="calledTeam != null and calledTeam !=''">
+                        AND t1.CALLED_TEAM = #{calledTeam,jdbcType=VARCHAR}
+                    </if>
+                    <if test="dateDailyb != null and dateDailyb !=''">
+                        AND t1.DATE_DAILY &gt;= #{dateDailyb,jdbcType=VARCHAR}
+                    </if>
+                    <if test="dateDailye !=null and dateDailye !=''">
+                        AND t1.DATE_DAILY &lt;= #{dateDailye,jdbcType=VARCHAR}
+                    </if>
+                GROUP BY
+                    t1.BUSINESS,
+                    t1.CALLED_TEAM
+            ) t2
+        LEFT JOIN SYSTEM_BASIC_CONFIG t3 ON t2.BUSINESS = t3.`CODE` AND  t3.MOUDLECODE = 'BIZ-NAME'
+        LEFT JOIN SYSTEM_BASIC_CONFIG t4 ON t2.CALLED_TEAM = t4.`CODE` AND  t4.MOUDLECODE = 'OUT-CALL-TEA'
+    </select>
+
+    <select id="statisticsTotal"  resultMap="BaseResultMap" parameterType="com.ancun.boss.pojo.market.MarketDailyInput">
+
+        SELECT
+        t2.CALLED_NUMBERS,
+        t2.CONNECT_NUMBERS,
+        t2.SUCCESS_DAILYS,
+        t2.CONNECTED_AVG,
+        t2.SUCCESS_AVG
+        FROM
+        (
+            SELECT
+            SUM(t1.SEATS_NUMBER) SEATS_NUMBERS,
+            SUM(t1.CALLED_NUMBER) CALLED_NUMBERS,
+            SUM(t1.CONNECT_NUMBER) CONNECT_NUMBERS,
+            SUM(t1.SUCCESS_DAILY) SUCCESS_DAILYS,
+            ROUND(AVG(t1.CONNECTED_AVG), 2) CONNECTED_AVG,
+            ROUND(AVG(t1.SUCCESS_AVG), 2) SUCCESS_AVG
+            FROM
+            MARKET_DAILY t1
+            WHERE
+            1 = 1
+            <if test="business != null and business !=''">
+                AND t1.BUSINESS = #{business,jdbcType=VARCHAR}
+            </if>
+            <if test="calledTeam != null and calledTeam !=''">
+                AND t1.CALLED_TEAM = #{calledTeam,jdbcType=VARCHAR}
+            </if>
+            <if test="dateDailyb != null and dateDailyb !=''">
+                AND t1.DATE_DAILY &gt;= #{dateDailyb,jdbcType=VARCHAR}
+            </if>
+            <if test="dateDailye !=null and dateDailye !=''">
+                AND t1.DATE_DAILY &lt;= #{dateDailye,jdbcType=VARCHAR}
+            </if>
+        ) t2
+    </select>
+
+
+</mapper>
+       

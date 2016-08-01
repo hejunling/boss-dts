@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ancun.common.persistence.mapper.master.BizUserVoiceInfoMapper">
+  <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.master.BizUserVoiceInfo">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="RECORDNO" jdbcType="VARCHAR" property="recordno" />
+    <result column="USER_NO" jdbcType="VARCHAR" property="userNo" />
+    <result column="ENT_NO" jdbcType="VARCHAR" property="entNo" />
+    <result column="BIZ_NO" jdbcType="VARCHAR" property="bizNo" />
+    <result column="RPCODE" jdbcType="VARCHAR" property="rpcode" />
+    <result column="CITYCODE" jdbcType="VARCHAR" property="citycode" />
+    <result column="OFILENAME" jdbcType="VARCHAR" property="ofilename" />
+    <result column="RECORDSOURCE" jdbcType="VARCHAR" property="recordsource" />
+    <result column="CALLTYPE" jdbcType="VARCHAR" property="calltype" />
+    <result column="CALLERNO" jdbcType="VARCHAR" property="callerno" />
+    <result column="CALLEDNO" jdbcType="VARCHAR" property="calledno" />
+    <result column="BEGINTIME" jdbcType="TIMESTAMP" property="begintime" />
+    <result column="ENDTIME" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="DURATION" jdbcType="BIGINT" property="duration" />
+    <result column="FILESIZE" jdbcType="BIGINT" property="filesize" />
+    <result column="LICENCENO" jdbcType="VARCHAR" property="licenceno" />
+    <result column="LICENCEDATETIME" jdbcType="TIMESTAMP" property="licencedatetime" />
+    <result column="RECODERREMARK" jdbcType="VARCHAR" property="recoderremark" />
+    <result column="CPCERTIFICATEFLG" jdbcType="VARCHAR" property="cpcertificateflg" />
+    <result column="CPCERTIFICATEAPPLYTIME" jdbcType="TIMESTAMP" property="cpcertificateapplytime" />
+    <result column="CPDELFLG" jdbcType="VARCHAR" property="cpdelflg" />
+    <result column="DELDATETIME" jdbcType="TIMESTAMP" property="deldatetime" />
+    <result column="CPGETFLG" jdbcType="VARCHAR" property="cpgetflg" />
+    <result column="ACCESSCODE" jdbcType="VARCHAR" property="accesscode" />
+    <result column="GETDATETIME" jdbcType="TIMESTAMP" property="getdatetime" />
+    <result column="DUEDATETIME" jdbcType="TIMESTAMP" property="duedatetime" />
+    <result column="CALLWAY" jdbcType="VARCHAR" property="callway" />
+    <result column="ISPAY" jdbcType="VARCHAR" property="ispay" />
+    <result column="VOICETYPE" jdbcType="VARCHAR" property="voicetype" />
+  </resultMap>
+</mapper>

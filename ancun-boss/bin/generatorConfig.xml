@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+	<classPathEntry location="C:\Users\kfc\.m2\repository\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar" />  
+	<context id="context" >
+	  <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/demo" userId="root" password=""  />
+	  <javaModelGenerator targetPackage="com.ancun.common.biz.persistence.model" targetProject="ancun-common-biz" />
+	  <sqlMapGenerator targetPackage="com.ancun.common.biz.persistence.mapper" targetProject="ancun-common-biz" ></sqlMapGenerator>
+	  <javaClientGenerator targetPackage="com.ancun.common.biz.persistence.client" targetProject="ancun-common-biz" type="XMLMAPPER" />
+	  <table schema="" tableName="accessinfo" ></table>
+	</context>
+</generatorConfiguration>

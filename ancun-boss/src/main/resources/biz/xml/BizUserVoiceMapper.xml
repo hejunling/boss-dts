@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ancun.boss.business.persistence.mapper.BizUserVoiceMapper">
+
+    <!--月总量-->
+    <select id="statisticsMonthCount" parameterType="com.ancun.boss.business.pojo.bizvoice.BizUserVoiceStatisticsInput" resultType="com.ancun.boss.business.pojo.bizvoice.BizUserVoiceMonitorStatisticsInfo">
+        SELECT
+        BUVI.BIZ_NO AS bizno
+        ,BUVI.ENT_NO AS entno
+        ,BUVI.USER_NO AS userno
+        ,BUVI.CPCERTIFICATEFLG AS cpcertificateflg
+        ,COUNT(BUVI.ID) AS voiceCount
+        ,COUNT(CASE WHEN EXTRACT(MONTH  FROM BUVI.BEGINTIME) = '1' THEN BUVI.ID END)  AS januaryCount
+        ,COUNT(CASE WHEN EXTRACT(MONTH  FROM BUVI.BEGINTIME) = '2' THEN BUVI.ID  END)  AS februaryCount
+        ,COUNT(CASE WHEN EXTRACT(MONTH  FROM BUVI.BEGINTIME) = '3' THEN BUVI.ID END) AS marchCount
+        ,COUNT(CASE WHEN EXTRACT(MONTH  FROM BUVI.BEGINTIME) = '4' THEN BUVI.ID  END)  AS aprilCount
+        ,COUNT(CASE WHEN EXTRACT(MONTH  FROM BUVI.BEGINTIME) = '5' THEN BUVI.ID END)  AS mayCount
+        ,COUNT(CASE WHEN EXTRACT(MONTH  FROM BUVI.BEGINTIME) = '6' THEN BUVI.ID  END)  AS juneCount
+        ,COUNT(CASE WHEN EXTRACT(MONTH  FROM BUVI.BEGINTIME) = '7' THEN BUVI.ID END)   AS julyCount
+        ,COUNT(CASE WHEN EXTRACT(MONTH  FROM BUVI.BEGINTIME) = '8' THEN BUVI.ID  END)   AS augustCount
+        ,COUNT(CASE WHEN EXTRACT(MONTH  FROM BUVI.BEGINTIME) = '9' THEN BUVI.ID END) AS septemberCount
+        ,COUNT(CASE WHEN EXTRACT(MONTH  FROM BUVI.BEGINTIME) = '10' THEN BUVI.ID  END) AS octoberCount
+        ,COUNT(CASE WHEN EXTRACT(MONTH  FROM BUVI.BEGINTIME) = '11' THEN BUVI.ID END)  AS novemberCount
+        ,COUNT(CASE WHEN EXTRACT(MONTH  FROM BUVI.BEGINTIME) = '12' THEN BUVI.ID  END)  AS decemberCount
+        FROM
+        BIZ_USER_VOICE_INFO AS BUVI
+        WHERE
+        1 = 1
+        <if test="bizno != null and bizno !=''" >
+            AND BUVI.BIZ_NO = #{bizno,jdbcType=VARCHAR}
+        </if>
+        <if test="cpcertificateflg != null and cpcertificateflg !=''" >
+            AND BUVI.CPCERTIFICATEFLG = #{cpcertificateflg,jdbcType=VARCHAR}
+        </if>
+        <if test="year != null  and year !=''" >
+            AND  EXTRACT(YEAR FROM BUVI.BEGINTIME) = #{year,jdbcType=VARCHAR}
+        </if>
+        GROUP BY  BUVI.BIZ_NO,BUVI.CPCERTIFICATEFLG
+    </select>
+
+    <!--季度总量-->
+        <select id="statisticsQuarterCount" parameterType="com.ancun.boss.business.pojo.bizvoice.BizUserVoiceStatisticsInput" resultType="com.ancun.boss.business.pojo.bizvoice.BizUserVoiceQuarterStatisticsInfo">
+        SELECT
+        BUVI.BIZ_NO AS bizno
+        ,BUVI.ENT_NO AS entno
+        ,BUVI.USER_NO AS userno
+        ,BUVI.CPCERTIFICATEFLG AS cpcertificateflg
+        ,COUNT(BUVI.ID) AS voiceCount
+        ,COUNT(CASE WHEN EXTRACT(QUARTER  FROM BUVI.BEGINTIME) = '1' THEN BUVI.ID END)  AS oneQuarter
+        ,COUNT(CASE WHEN EXTRACT(QUARTER  FROM BUVI.BEGINTIME) = '2' THEN BUVI.ID  END)  AS twoQuarter
+        ,COUNT(CASE WHEN EXTRACT(QUARTER  FROM BUVI.BEGINTIME) = '3' THEN BUVI.ID END) AS threeQuarter
+        ,COUNT(CASE WHEN EXTRACT(QUARTER  FROM BUVI.BEGINTIME) = '4' THEN BUVI.ID  END)  AS fourQuarter
+        FROM
+        BIZ_USER_VOICE_INFO AS BUVI
+        WHERE
+        1 = 1
+        <if test="bizno != null and bizno !=''" >
+            AND BUVI.BIZ_NO = #{bizno,jdbcType=VARCHAR}
+        </if>
+        <if test="cpcertificateflg != null and cpcertificateflg !=''" >
+            AND BUVI.CPCERTIFICATEFLG = #{cpcertificateflg,jdbcType=VARCHAR}
+        </if>
+        <if test="year != null  and year !=''" >
+            AND  EXTRACT(YEAR FROM BUVI.BEGINTIME) = #{year,jdbcType=VARCHAR}
+        </if>
+        GROUP BY  BUVI.BIZ_NO,BUVI.CPCERTIFICATEFLG
+    </select>
+
+    <!--半年总量 -->
+    <select id="statisticsHalfYearCount" parameterType="com.ancun.boss.business.pojo.bizvoice.BizUserVoiceStatisticsInput" resultType="com.ancun.boss.business.pojo.bizvoice.BizUserVoiceHalfYearsStatisticsInfo">
+
+        SELECT
+        BUVI.BIZ_NO AS bizno
+        ,BUVI.ENT_NO AS entno
+        ,BUVI.USER_NO AS userno
+        ,BUVI.CPCERTIFICATEFLG AS cpcertificateflg
+        ,COUNT(BUVI.ID) AS voiceCount
+        ,COUNT(CASE WHEN EXTRACT(QUARTER  FROM BUVI.BEGINTIME)  IN (1,2) THEN BUVI.ID END)  AS firstHalfYear
+        ,COUNT(CASE WHEN EXTRACT(QUARTER  FROM BUVI.BEGINTIME)  IN (3,4) THEN BUVI.ID  END)  AS secondHalfYear
+        FROM
+        BIZ_USER_VOICE_INFO AS BUVI
+        WHERE
+        1 = 1
+
+        <if test="bizno != null and bizno !=''" >
+            AND BUVI.BIZ_NO = #{bizno,jdbcType=VARCHAR}
+        </if>
+        <if test="cpcertificateflg != null and cpcertificateflg !=''" >
+            AND BUVI.CPCERTIFICATEFLG = #{cpcertificateflg,jdbcType=VARCHAR}
+        </if>
+        <if test="year != null  and year !=''" >
+            AND  EXTRACT(YEAR FROM BUVI.BEGINTIME) = #{year,jdbcType=VARCHAR}
+        </if>
+        GROUP BY  BUVI.BIZ_NO,BUVI.CPCERTIFICATEFLG
+    </select>
+
+    <!--年总量-->
+    <select id="statisticsYearCount" parameterType="com.ancun.boss.business.pojo.bizvoice.BizUserVoiceStatisticsInput" resultType="com.ancun.boss.business.pojo.bizvoice.BizUserVoiceYearStatisticsInfo">
+
+        SELECT
+        BUVI.BIZ_NO AS bizno
+        ,BUVI.ENT_NO AS entno
+        ,BUVI.USER_NO AS userno
+        ,BUVI.CPCERTIFICATEFLG AS cpcertificateflg
+        ,COUNT(BUVI.ID) AS voiceCount
+        ,COUNT(CASE WHEN EXTRACT(YEAR  FROM BUVI.BEGINTIME)  THEN BUVI.ID END)  AS yearCount
+        FROM
+        BIZ_USER_VOICE_INFO AS BUVI
+        WHERE
+        1 = 1
+        <if test="bizno != null and bizno !=''" >
+            AND BUVI.BIZ_NO = #{bizno,jdbcType=VARCHAR}
+        </if>
+        <if test="cpcertificateflg != null and cpcertificateflg !=''" >
+            AND BUVI.CPCERTIFICATEFLG = #{cpcertificateflg,jdbcType=VARCHAR}
+        </if>
+        <if test="year != null  and year !=''" >
+            AND  EXTRACT(YEAR FROM BUVI.BEGINTIME) = #{year,jdbcType=VARCHAR}
+        </if>
+        GROUP BY  BUVI.BIZ_NO,BUVI.CPCERTIFICATEFLG
+    </select>
+
+    <!--录音开通数量统计-->
+    <select id="statisticsVoiceCount" parameterType="com.ancun.boss.business.pojo.bizvoice.BizUserVoiceStatisticsTableInput" resultType="com.ancun.boss.business.pojo.bizvoice.BizUserVocieStatisticsTableInfo">
+
+        SELECT
+        BUVI.BIZ_NO AS bizno
+        ,BUVI.CPCERTIFICATEFLG AS cpcertificateflg
+        ,COUNT(BUVI.ID) AS voicecount
+        <!-- 业务编号不为空,是否申请公证条件不为空 -->
+        <if test="bizno != null and bizno !='' and cpcertificateflg != null and cpcertificateflg !=''">
+            ,BUVI.USER_NO AS userno
+            ,BUVI.ENT_NO AS entno
+            <!-- 用户编号不为空 -->
+            <if test="usernumber != null and usernumber !=''">
+                ,DATE_FORMAT( BEGINTIME, '%Y-%m-%d') as creattime
+            </if>
+        </if>
+
+        FROM
+        BIZ_USER_VOICE_INFO AS BUVI
+        WHERE
+        1 = 1
+        <if test="bizno != null and bizno !=''" >
+            AND BUVI.BIZ_NO = #{bizno,jdbcType=VARCHAR}
+        </if>
+        <if test="cpcertificateflg != null and cpcertificateflg !=''" >
+            AND BUVI.CPCERTIFICATEFLG = #{cpcertificateflg,jdbcType=VARCHAR}
+        </if>
+        <if test="usernumber != null and usernumber !=''" >
+            AND BUVI.USER_NO = #{usernumber,jdbcType=VARCHAR}
+        </if>
+        <if test="startime != null and startime !=''" >
+            AND BUVI.BEGINTIME &gt;= #{startime,jdbcType=VARCHAR}
+        </if>
+        <if test="endtime != null and endtime !=''" >
+            AND BUVI.BEGINTIME &lt;= #{endtime,jdbcType=VARCHAR}
+        </if>
+
+        <!-- 分组条件 -->
+
+        <!-- 业务编号为空，根据业务编号和申请公证分组 -->
+        <if test="bizno == null or bizno ==''">
+            GROUP BY  BUVI.BIZ_NO,BUVI.CPCERTIFICATEFLG
+        </if>
+
+        <!-- 业务编号不为空 -->
+        <if test="bizno != null and bizno !=''">
+
+            <!-- 是否申请公证条件为空，根据是否申请公证分组 -->
+            <if test="cpcertificateflg == null or cpcertificateflg ==''">
+                GROUP BY  BUVI.CPCERTIFICATEFLG
+            </if>
+
+            <!-- 是否申请公证条件不为空 -->
+            <if test="cpcertificateflg != null and cpcertificateflg !=''">
+
+                <!-- 用户编号不为空，根据时间分组 -->
+                <if test="usernumber != null and usernumber !=''">
+                    GROUP BY DATE_FORMAT( BEGINTIME, '%Y-%m-%d')
+                </if>
+
+                <!-- 用户编号为空，用户分组 -->
+                <if test="usernumber == null or usernumber ==''">
+                    GROUP BY BUVI.USER_NO
+                </if>
+            </if>
+        </if>
+
+    </select>
+
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ancun.common.persistence.mapper.cp.telecom.TelUserVoiceInfoMapper">
+  <resultMap id="BaseResultMap" type="com.ancun.common.persistence.model.cp.telecom.TelUserVoiceInfo">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="CPID" jdbcType="BIGINT" property="cpid" />
+    <result column="RECORDNO" jdbcType="VARCHAR" property="recordno" />
+    <result column="IUSERNO" jdbcType="VARCHAR" property="iuserno" />
+    <result column="OFILENAME" jdbcType="VARCHAR" property="ofilename" />
+    <result column="RECORDSOURCE" jdbcType="VARCHAR" property="recordsource" />
+    <result column="CALLWAY" jdbcType="VARCHAR" property="callway" />
+    <result column="ICALLTYPE" jdbcType="VARCHAR" property="icalltype" />
+    <result column="CALLERNO" jdbcType="VARCHAR" property="callerno" />
+    <result column="CALLEDNO" jdbcType="VARCHAR" property="calledno" />
+    <result column="BEGINTIME" jdbcType="TIMESTAMP" property="begintime" />
+    <result column="ENDTIME" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="DURATION" jdbcType="BIGINT" property="duration" />
+    <result column="FILESIZE" jdbcType="BIGINT" property="filesize" />
+    <result column="LICENCENO" jdbcType="VARCHAR" property="licenceno" />
+    <result column="LICENCEDATETIME" jdbcType="TIMESTAMP" property="licencedatetime" />
+    <result column="RECODERREMARK" jdbcType="VARCHAR" property="recoderremark" />
+    <result column="CPCERTIFICATEFLG" jdbcType="VARCHAR" property="cpcertificateflg" />
+    <result column="CPCERTIFICATEAPPLYTIME" jdbcType="TIMESTAMP" property="cpcertificateapplytime" />
+    <result column="CPDELFLG" jdbcType="VARCHAR" property="cpdelflg" />
+    <result column="DELDATETIME" jdbcType="TIMESTAMP" property="deldatetime" />
+    <result column="CPGETFLG" jdbcType="VARCHAR" property="cpgetflg" />
+    <result column="ACCESSCODE" jdbcType="VARCHAR" property="accesscode" />
+    <result column="GETDATETIME" jdbcType="TIMESTAMP" property="getdatetime" />
+    <result column="DUEDATETIME" jdbcType="TIMESTAMP" property="duedatetime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+</mapper>
