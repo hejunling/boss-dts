@@ -27,7 +27,7 @@
         <!-- 依赖 -->
         <guava.version>18.0</guava.version>
         <drc.version>0.01</drc.version>
-        <mybatis.version>3.3.0</mybatis.version>
+        <mybatis.version>3.5.6</mybatis.version>
         <mybatis.spring.version>1.2.3</mybatis.spring.version>
         <druid.version>0.2</druid.version>
         <mybatis.boot.version>1.0.1</mybatis.boot.version>
